@@ -1,6 +1,7 @@
 /* General Styles */
 
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
 
 * {
   margin: 0;
@@ -13,9 +14,10 @@
 }
 
 :root {
-  --color-primary: #e20059;
-  --color-secondary: #9dbc29;
-  --yellow-variant: #ffb454;
+  --color-primary: #272626;
+  --color-secondary: #6a78f4;
+  --gray-variant: #6d6868;
+  --white: #fff;
   --transition: all 400ms ease;
 
   --container-width-lg: 95%;
@@ -49,8 +51,53 @@ h3,
 h4,
 h5 {
   font-weight: 500;
+  color: var(--color-primary);
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-secondary);
 }
 
 h1 {
   font-size: 2.5rem;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+/* Auth */
+
+.auth {
+  height: 100vh;
+}
+
+.auth-logo img {
+  width: 30%;
+}
+
+.auth-header p {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.excerpt h5 {
+  font-family: "Caveat", cursive;
+  color: #fff;
+  font-size: 1.8rem;
+  width: 40%;
+}
+
+input {
+  color: #6d6868;
+}
+
+.auth-btn {
+  background: var(--color-primary);
+  border: 0;
+}
+
+.auth-btn:hover {
+  background: var(--color-secondary);
 }
