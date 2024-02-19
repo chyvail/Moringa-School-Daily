@@ -20,7 +20,7 @@ export default function Auth({ children }) {
 
   return (
     <div className="row auth">
-      <div className="col-md-8 col-sm-12" style={backgroundImageStyle}>
+      <div className="col-md-8 col-sm-12 auth-image-section" style={backgroundImageStyle}>
         <div
           className="d-flex flex-column justify-content-between"
           style={{ height: "95vh", padding: "2rem" }}

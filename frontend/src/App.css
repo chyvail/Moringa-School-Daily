@@ -103,3 +103,10 @@ input {
 .auth-btn:hover {
   background: var(--color-secondary);
 }
+
+/* Small Screens */
+@media screen and (max-width: 600px) {
+  .auth-image-section {
+    display: none;
+  }
+}
