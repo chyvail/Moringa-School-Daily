@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Auth from "./Auth";
 import AuthButton from "./AuthButton";
 
@@ -8,7 +9,7 @@ export default function SignIn() {
         <h3>Sign In</h3>
         <div className="auth-header">
           <p>
-            Don't have an Account yet? <a href="/">Sign up Here</a>
+            Don't have an Account yet? <Link to="/register">Sign up Here</Link>
           </p>
         </div>
         <div>
