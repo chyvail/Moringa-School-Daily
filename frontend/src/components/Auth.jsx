@@ -1,17 +1,26 @@
 import React from "react";
-import customImage from "../assets/college-students-different-ethnicities-cramming.jpg";
+import signInImage from "../assets/college-students-different-ethnicities-cramming.jpg";
+import signUpImage from "../assets/medium-shot-girls-looking-notebook.jpg";
 import Logo from "./Logo";
+import { useLocation } from "react-router-dom";
 
 export default function Auth({ children }) {
+  const location = useLocation();
+  const loginExcperpt = `"Join the Community, Explore the Possibilities, Empower Your Tech
+  Journey."`;
+  const signupExcertpt = `"Connect, Learn, Innovate: Your Tech Adventure Starts Here."`;
+
   const backgroundImageStyle = {
-    backgroundImage: `url(${customImage})`,
+    backgroundImage: `url(${
+      location.pathname === "/login" ? signInImage : signUpImage
+    })`,
     backgroundSize: "cover",
     backgroundPosition: "center",
   };
 
   return (
     <div className="row auth">
-      <div className="col-sm-8" style={backgroundImageStyle}>
+      <div className="col-md-8 col-sm-12" style={backgroundImageStyle}>
         <div
           className="d-flex flex-column justify-content-between"
           style={{ height: "95vh", padding: "2rem" }}
@@ -21,13 +30,12 @@ export default function Auth({ children }) {
           </div>
           <div className="excerpt">
             <h5>
-              "Join the Community, Explore the Possibilities, Empower Your Tech
-              Journey."
+              {location.pathname === "/login" ? loginExcperpt : signupExcertpt}
             </h5>
           </div>
         </div>
       </div>
-      <div className="col-sm-4">
+      <div className="col-md-4 col-sm-12">
         <div
           className="d-flex flex-column justify-content-center p-3"
           style={{ height: "100vh" }}
