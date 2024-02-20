@@ -10,5 +10,17 @@ def post_category():
     return jsonify(['Category Added successfuly'])
     
     
-
+#Getting all categories
+def get_categories():
+    categories=[]
+    for category in Category.query.all():
+        category_dict={
+               "id":category.id,               
+                "name":category.name
+                          
+                }
+        categories.append(category_dict)
+    return jsonify(categories)
+    
+    
 
