@@ -8,7 +8,7 @@ class Recommendations(Resource):
         recommendation=Recommendation(content_id=data['content_id'],user_id=data['user_id'])
         db.session.add(recommendation)
         db.session.commit()
-        return jsonify({"message":"recommendation added successfully"})
+        return jsonify({"message":"recommendation added successfully"}), 201
 
     def get(self):
         recommendations_list=[]
@@ -38,10 +38,10 @@ class RecommendationByID(Resource):
             if field in data:
                 setattr(recommendation,field,data[field])
         db.session.commit()
-        return jsonify(["Updated successfully"])
+        return jsonify({"message":"recommendation updated successfully"}), 201
 
     def delete(id):
         recommendation = Recommendation.query.filter_by(id=id).first()
         db.session.delete(recommendation)
         db.session.commit()
-        return jsonify(["Deleted successfully"])
+        return jsonify({"message":"recommendation deleted successfully"}), 200

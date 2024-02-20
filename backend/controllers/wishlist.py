@@ -8,7 +8,7 @@ class Wishlists(Resource):
         wishlist = Wishlist(content_id=data['content_id'],user_id=data['user_id'])
         db.session.add(wishlist)
         db.session.commit()
-        return jsonify(["Wishlist added successfully"])
+        return jsonify({"message":"Wishlist added successfully"}), 201
     
     def get(self):
         wishlist_items=[]
@@ -20,7 +20,8 @@ class Wishlists(Resource):
             }                          
                     
             wishlist_items.append(wishlist_dict)
-        return jsonify(wishlist_items)
+        return jsonify(wishlist_items), 200
+    
 class WishlistByID(Resource):
     def get(self, id):
         wishlist = Wishlist.query.filter_by(id=id).first()
@@ -29,18 +30,19 @@ class WishlistByID(Resource):
                     "user_id":wishlist.user_id,
                     "content_id":wishlist.content_id
         }
-        return jsonify(wishlist_dict)
-    def update(self, id):
+        return jsonify(wishlist_dict), 200
+    
+    def put(self, id):
         wishlist = Wishlist.query.filter_by(id=id).first()
         data = request.json
         for field in ["id","user_id","content_id"]:
             if field in data:
                 setattr(wishlist,field,data[field])
         db.session.commit()
-        return jsonify(["Updated successfully"])
+        return jsonify({"message":"Wishlist updated successfully"}), 201
     
     def delete(id):
         wishlist = Wishlist.query.filter_by(id=id).first()
         db.session.delete(wishlist)
         db.session.commit()
-        return jsonify(["Deleted successfully"])
+        return jsonify({"message":"Wishlist deleted successfully"}), 200

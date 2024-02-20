@@ -8,7 +8,7 @@ class Subscriptions(Resource):
         subscription = Subscription(category_id=data['category_id'],user_id=data['user_id'])
         db.session.add(subscription)
         db.session.commit()
-        return jsonify(["Subscription added successfully"])
+        return jsonify({"message":"subscription updated successfully"}), 201
     
     def get(self):
         subscriptions_list=[]
@@ -30,7 +30,7 @@ class SubscriptionByID(Resource):
                     "user_id":subscription.user_id,
                     "category_id":subscription.category_id
         }
-        return jsonify(subscription_dict)
+        return jsonify(subscription_dict), 200
     
     def put(self, id):
         subscription = Subscription.query.filter_by(id=id).first()
@@ -39,10 +39,10 @@ class SubscriptionByID(Resource):
             if field in data:
                 setattr(subscription,field,data[field])
         db.session.commit()
-        return jsonify(["Updated successfully"])
+        return jsonify({"message":"subscription updated successfully"}), 201
     
     def delete(self,id):
         subscription = Subscription.query.filter_by(id=id).first()
         db.session.delete(subscription)
         db.session.commit()
-        return jsonify(["Deleted successfully"])
+        return jsonify({"message":"subscription updated successfully"}), 200
