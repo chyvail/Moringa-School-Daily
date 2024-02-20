@@ -23,12 +23,12 @@ class User(db.Model,SerializerMixin):
             raise ValueError("Role must be 'ADMIN', 'TECH-WRITER' or 'USER'")
         return normalized_role
 
-    comments = db.relationship("Comment" ,backref = 'user',lazy = True)
-    contents = db.relationship("Content",back_populates='users',lazy = True)
-    wishlist = db.relationship("Wishlist", backref='user',uselist = False)
-    profile = db.relationship("Profile", backref = "user",uselist=False)
-    subscriptions = db.relationship("Subscription",backref = "user",lazy = True)
-    recommendations = db.relationship("Recommendation", backref='user',lazy=True) 
+    #comments = db.relationship("Comment" ,backref = 'user',lazy = True)
+    #contents = db.relationship("Content",back_populates='users',lazy = True)
+    #wishlist = db.relationship("Wishlist", backref='user',uselist = False)
+    #profile = db.relationship("Profile", backref = "user",uselist=False)
+    #subscriptions = db.relationship("Subscription",backref = "user",lazy = True)
+    #recommendations = db.relationship("Recommendation", backref='user',lazy=True) 
 
 class Content(db.Model,SerializerMixin):
     __tablename__ = 'contents'
@@ -43,16 +43,16 @@ class Content(db.Model,SerializerMixin):
     flagged = db.Column(db.Boolean, default = False)
     status = db.Column(db.Boolean, default = True)
 
-    comments = db.relationship('Comment',backref = 'content',lazy=True)
-    users = db.relationship("User",back_populates = 'contents',lazy=True )
-    recommendations = db.relationship('Recommendation', backref = 'content')
+    #comments = db.relationship('Comment',backref = 'content',lazy=True)
+    #users = db.relationship("User",back_populates = 'contents',lazy=True )
+    #recommendations = db.relationship('Recommendation', backref = 'content')
 
 class Category(db.Model, SerializerMixin):
     __tablename__ = 'categories'
     id =  db.Column(db.Integer, primary_key = True) 
     name = db.Column(db.String(50), unique = True)
 
-    contents = db.relationship("Content", backref = 'category', lazy=True)
+    #contents = db.relationship("Content", backref = 'category', lazy=True)
     
 class Profile(db.Model,SerializerMixin):
     __tablename__ = 'profiles'
