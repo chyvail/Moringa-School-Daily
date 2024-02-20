@@ -36,6 +36,7 @@ class Content(db.Model,SerializerMixin):
     status = db.Column(db.Boolean, default = True)
 
     comments = db.relationship('Comment',backref = 'content',lazy=True)
+    users = db.relationship("User",back_populates = 'contents',lazy=True )
 
 class Category(db.Model, SerializerMixin):
     __tablename__ = 'categories'
