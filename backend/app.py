@@ -1,7 +1,7 @@
 from flask import Flask, request, make_response, jsonify
 from flask_restful import Api, Resource
 from http import HTTPStatus
-from controllers.users import Users,UserLogin,jwt
+from controllers.users import Users,UserLogin,UserById,jwt
 from controllers.recommendation import Recommendations, RecommendationByID
 from controllers.subscription import Subscriptions, SubscriptionByID
 from controllers.wishlist import Wishlists, WishlistByID
@@ -46,6 +46,7 @@ api.add_resource(Wishlists, '/wishlists')
 api.add_resource(WishlistByID, '/wishlists/<int:id>')
 api.add_resource(Users,'/users')
 api.add_resource(UserLogin,'/login')
+api.add_resource(UserById,'/users/<int:id>')
 
 if __name__=='__main__':
     app.run()

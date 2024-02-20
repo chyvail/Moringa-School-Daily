@@ -37,3 +37,30 @@ class UserLogin(Resource):
         metadata = {"role": user.role}
         token = create_access_token(identity=user.email, additional_claims=metadata)
         return {"jwt-access-token": token}
+
+class UserById(Resource):
+    def get(self,id):
+        user = User.query.get(id)
+        if not user:
+            abort(404, detail = f'User with {id=} does not exist')
+        return user.to_dict()
+    
+    def patch(self,id):
+        user = User.query.get(id)
+        if not user:
+            abort(404, detail = f'User with {id=} does not exist')
+        data = request.get_json()
+        for key, value in data.items():
+            if value is None:
+                continue
+            setattr(user, key, value)
+        db.session.commit()
+        return user.to_dict()
+    
+    def delete(self,id):
+        user = User.query.filter_by(id=id).first()
+        if not user:
+            abort(404, detail = f'User with {id=} does not exist')
+        db.session.delete(user)
+        db.session.commit()
+        return {"detail": f"user with {id=} has been deleted successfully"}
