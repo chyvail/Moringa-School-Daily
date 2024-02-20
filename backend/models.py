@@ -53,3 +53,9 @@ class Wishlist(db.Model,SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     content_id = db.Column(db.Integer,db.ForeignKey('contents.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+class Subscription(db.Model,SerializerMixin):
+    __tablename__ = 'subscriptions'
+    id = db.Column(db.Integer, primary_key = True)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
