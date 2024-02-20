@@ -33,7 +33,6 @@ class Category(db.Model, SerializerMixin):
     id =  db.Column(db.Integer, primary_key = True) 
     name = db.Column(db.String(50), unique = True)
 
-    contents = db.relationship("Content", backref = 'category', lazy=True)
     
 class Profile(db.Model,SerializerMixin):
     __tablename__ = 'profiles'
@@ -48,3 +47,9 @@ class Comment(db.Model,SerializerMixin):
     comment = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     content_id = db.Column(db.Integer,db.ForeignKey('contents.id'))
+
+class Wishlist(db.Model,SerializerMixin):
+    __tablename__ = 'wishlists'
+    id = db.Column(db.Integer, primary_key = True)
+    content_id = db.Column(db.Integer,db.ForeignKey('contents.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
