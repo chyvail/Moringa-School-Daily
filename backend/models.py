@@ -16,6 +16,7 @@ class User(db.Model,SerializerMixin):
 
     comments = db.relationship("Comment" ,backref = 'user',lazy = True)
     contents = db.relationship("Content",back_populates='users',lazy = True)
+    wishlist = db.relationship("Wishlist", backref='user',uselist = False)
 
 
 class Content(db.Model,SerializerMixin):
