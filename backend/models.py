@@ -13,7 +13,7 @@ class User(db.Model,SerializerMixin):
     lastname = db.Column(db.String(50))
     email = db.Column(db.String(50), unique= True)
     password = db.Column(db.String(50))
-    role = db.Column(db.String(50))
+    role = db.Column(db.String(50), default='USER')
 
     @validates('role')
     def validate_role(self, key, role):
