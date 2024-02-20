@@ -1,0 +1,9 @@
+from models import Recommendation,db
+from flask import jsonify,request
+
+def post_recommendation():
+    data=request.get_json()
+    recommendation=Recommendation(content_id=data['content_id'],user_id=data['user_id'])
+    db.session.add(recommendation)
+    db.session.commit()
+    return jsonify({"message":"recommendation added successfully"})
