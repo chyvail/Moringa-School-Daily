@@ -38,3 +38,9 @@ class WishlistByID(Resource):
                 setattr(wishlist,field,data[field])
         db.session.commit()
         return jsonify(["Updated successfully"])
+    
+    def delete(id):
+        wishlist = Wishlist.query.filter_by(id=id).first()
+        db.session.delete(wishlist)
+        db.session.commit()
+        return jsonify(["Deleted successfully"])
