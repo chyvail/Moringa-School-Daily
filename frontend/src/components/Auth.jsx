@@ -19,25 +19,25 @@ export default function Auth({ children }) {
   };
 
   return (
-    <div className="row auth">
-      <div className="col-md-7 col-sm-12 auth-image-section" style={backgroundImageStyle}>
+    <div classNameName="row auth">
+      <div classNameName="col-md-7 col-sm-12 auth-image-section" style={backgroundImageStyle}>
         <div
-          className="d-flex flex-column justify-content-between"
+          classNameName="d-flex flex-column justify-content-between"
           style={{ height: "95vh", padding: "2rem" }}
         >
-          <div className="mt-4 auth-logo">
+          <div classNameName="mt-4 auth-logo">
             <Logo />
           </div>
-          <div className="excerpt">
+          <div classNameName="excerpt">
             <h5>
               {location.pathname === "/login" ? loginExcperpt : signupExcertpt}
             </h5>
           </div>
         </div>
       </div>
-      <div className="col-md-5 col-sm-12">
+      <div classNameName="col-md-5 col-sm-12">
         <div
-          className="d-flex flex-column justify-content-center p-3"
+          classNameName="d-flex flex-column justify-content-center p-3"
           style={{ height: "100vh" }}
         >
           {children}

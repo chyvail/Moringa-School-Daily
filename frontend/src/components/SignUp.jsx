@@ -7,36 +7,36 @@ export default function SignUp() {
     <Auth>
       <div>
         <h3>Sign Up</h3>
-        <div className="auth-header">
+        <div classNameName="auth-header">
           <p>
             Already have an account? <Link to="/login">Sign in Here</Link>
           </p>
         </div>
         <div>
           <form>
-            <div className="mb-3">
-              <div className="row gx-1">
-                <div className="col-sm-6">
-                  <label className="form-label">First Name</label>
-                  <input type="text" className="form-control" />
+            <div classNameName="mb-3">
+              <div classNameName="row gx-1">
+                <div classNameName="col-sm-6">
+                  <label classNameName="form-label">First Name</label>
+                  <input type="text" classNameName="form-control" />
                 </div>
-                <div className="col-sm-6">
-                  <label className="form-label">Last Name</label>
-                  <input type="text" className="form-control" />
+                <div classNameName="col-sm-6">
+                  <label classNameName="form-label">Last Name</label>
+                  <input type="text" classNameName="form-control" />
                 </div>
               </div>
             </div>
-            <div className="mb-3">
-              <label className="form-label">Email address</label>
-              <input type="email" className="form-control" />
+            <div classNameName="mb-3">
+              <label classNameName="form-label">Email address</label>
+              <input type="email" classNameName="form-control" />
             </div>
-            <div className="mb-3">
-              <label className="form-label">Password</label>
-              <input type="password" className="form-control" />
+            <div classNameName="mb-3">
+              <label classNameName="form-label">Password</label>
+              <input type="password" classNameName="form-control" />
             </div>
-            <div className="mb-3">
-              <label className="form-label">Confirm Password</label>
-              <input type="password" className="form-control" />
+            <div classNameName="mb-3">
+              <label classNameName="form-label">Confirm Password</label>
+              <input type="password" classNameName="form-control" />
             </div>
             <AuthButton name="Sign up Here" />
           </form>

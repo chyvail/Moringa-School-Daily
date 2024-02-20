@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 api = Api(app)
 
-# class Home(Resource):
+# className Home(Resource):
     
 #     def get(self):
 #         response_dict = {
