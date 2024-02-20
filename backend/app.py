@@ -1,23 +1,26 @@
 from flask import Flask, request, make_response, jsonify
 from flask_restful import Api, Resource
 from http import HTTPStatus
-from controllers.users import Users
+from controllers.users import Users,UserLogin,jwt
 from controllers.recommendation import Recommendations, RecommendationByID
 from controllers.subscription import Subscriptions, SubscriptionByID
 from controllers.wishlist import Wishlists, WishlistByID
 from flask_cors import CORS
 from flask_migrate import Migrate
-
+from datetime import timedelta
 from models import db
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///moringa-daily.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=24)
+app.config['SECRET_KEY'] = 'tvbubvhriefjkwerty='
 
 migrate = Migrate(app,db)
 
 db.init_app(app)
+jwt.init_app(app)
 
 CORS(app)
 
@@ -42,6 +45,7 @@ api.add_resource(SubscriptionByID, '/subscriptions/<int:id>')
 api.add_resource(Wishlists, '/wishlists')
 api.add_resource(WishlistByID, '/wishlists/<int:id>')
 api.add_resource(Users,'/users')
+api.add_resource(UserLogin,'/login')
 
 if __name__=='__main__':
     app.run()

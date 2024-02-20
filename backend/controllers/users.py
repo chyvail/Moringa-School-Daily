@@ -2,8 +2,10 @@ from flask import Flask, request, make_response, jsonify
 from flask_restful import Api, Resource, abort
 from flask_bcrypt import Bcrypt
 from models import User,db
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 bcrypt = Bcrypt()
+jwt = JWTManager()
 
 class Users(Resource):
     def get(self):
@@ -24,3 +26,14 @@ class Users(Resource):
         else:
             abort(403, detail="Password and Confirm Password do not match")
     
+class UserLogin(Resource):
+    def post(self):
+        data = request.get_json()
+        user = User.query.filter_by(email=data['email']).first()
+        if not user:
+            abort(404, detail="User does not exist")
+        if not bcrypt.check_password_hash(user.password, data['password']):
+            abort(403, detail="Password is not correct")
+        metadata = {"role": user.role}
+        token = create_access_token(identity=user.email, additional_claims=metadata)
+        return {"jwt-access-token": token}
