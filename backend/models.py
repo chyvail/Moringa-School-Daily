@@ -19,7 +19,8 @@ class User(db.Model,SerializerMixin):
     wishlist = db.relationship("Wishlist", backref='user',uselist = False)
     profile = db.relationship("Profile", backref = "user",uselist=False)
     subscriptions = db.relationship("Subscription",backref = "user",lazy = True)
-
+    recommendations = db.relationship("Recommendation", backref='user',lazy=True)
+ 
 
 class Content(db.Model,SerializerMixin):
     __tablename__ = 'contents'
