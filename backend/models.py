@@ -37,6 +37,8 @@ class Content(db.Model,SerializerMixin):
 
     comments = db.relationship('Comment',backref = 'content',lazy=True)
     users = db.relationship("User",back_populates = 'contents',lazy=True )
+    recommendations = db.relationship('Recommendation', backref = 'content')
+
 
 class Category(db.Model, SerializerMixin):
     __tablename__ = 'categories'
