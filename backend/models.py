@@ -15,6 +15,7 @@ class User(db.Model,SerializerMixin):
     role = db.Column(db.String(50))
 
     comments = db.relationship("Comment" ,backref = 'user',lazy = True)
+    contents = db.relationship("Content",back_populates='users',lazy = True)
 
 
 class Content(db.Model,SerializerMixin):
