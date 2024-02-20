@@ -2,7 +2,7 @@ from models import Recommendation,db
 from flask import jsonify,request
 from flask_restful import Resource
 
-class Recommendation(Resource):
+class Recommendations(Resource):
     def post(self):
         data=request.get_json()
         recommendation=Recommendation(content_id=data['content_id'],user_id=data['user_id'])
@@ -11,15 +11,15 @@ class Recommendation(Resource):
         return jsonify({"message":"recommendation added successfully"})
 
     def get(self):
-        recommendations=[]
+        recommendations_list=[]
         for recommendation in Recommendation.query.all():
             recommendation_dict={
                 "id": recommendation.id,
                 "user_id":recommendation.user_id,
                 "content_id": recommendation.content_id
             }
-            recommendations.append(recommendation_dict)
-        return jsonify(recommendations), 200
+            recommendations_list.append(recommendation_dict)
+        return jsonify(recommendations_list), 200
     
 class RecommendationByID(Resource):
     def get(self, id):

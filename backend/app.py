@@ -1,7 +1,7 @@
 from flask import Flask, request, make_response, jsonify
 from flask_restful import Api, Resource
 from http import HTTPStatus
-from controllers.recommendation import Recommendation, RecommendationByID
+from controllers.recommendation import Recommendations, RecommendationByID
 
 app = Flask(__name__)
 
@@ -20,7 +20,7 @@ class Home(Resource):
         return response
 
 api.add_resource(Home, '/')
-api.add_resource(Recommendation, '/recommendations')
+api.add_resource(Recommendations, '/recommendations')
 api.add_resource(RecommendationByID, '/recommendations<int:id>')
 
 if __name__=='__main__':

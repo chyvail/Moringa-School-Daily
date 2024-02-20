@@ -2,7 +2,7 @@ from models import Subscription,db
 from flask import jsonify,request
 from flask_restful import Resource
 
-class Subscription(Resource):
+class Subscriptions(Resource):
     def post(self):
         data = request.get_json()
         subscription = Subscription(category_id=data['category_id'],user_id=data['user_id'])
@@ -11,7 +11,7 @@ class Subscription(Resource):
         return jsonify(["Subscription added successfully"])
     
     def get(self):
-        subscriptions=[]
+        subscriptions_list=[]
         for subscription in Subscription.query.all():
             subscription_dict={
                 "id":subscription.id,               
@@ -19,8 +19,8 @@ class Subscription(Resource):
                     "category_id":subscription.category_id
                             
                     }
-            subscriptions.append(subscription_dict)
-        return jsonify(subscriptions)
+            subscriptions_list.append(subscription_dict)
+        return jsonify(subscriptions_list)
     
 class SubscriptionByID(Resource):
     def get(self, id):
