@@ -22,7 +22,7 @@ class Wishlists(Resource):
             wishlist_items.append(wishlist_dict)
         return jsonify(wishlist_items)
 class WishlistByID(Resource):
-    def get_wishlist(id):
+    def get(self, id):
         wishlist = Wishlist.query.filter_by(id=id).first()
         wishlist_dict={
                 "id":wishlist.id,               
@@ -30,3 +30,11 @@ class WishlistByID(Resource):
                     "content_id":wishlist.content_id
         }
         return jsonify(wishlist_dict)
+    def update(self, id):
+        wishlist = Wishlist.query.filter_by(id=id).first()
+        data = request.json
+        for field in ["id","user_id","content_id"]:
+            if field in data:
+                setattr(wishlist,field,data[field])
+        db.session.commit()
+        return jsonify(["Updated successfully"])
