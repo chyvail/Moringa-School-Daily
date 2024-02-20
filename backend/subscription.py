@@ -32,7 +32,7 @@ class SubscriptionByID(Resource):
         }
         return jsonify(subscription_dict)
     
-    def update(self, id):
+    def put(self, id):
         subscription = Subscription.query.filter_by(id=id).first()
         data = request.json
         for field in ["id","user_id","category_id"]:
