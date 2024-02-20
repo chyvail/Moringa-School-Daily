@@ -35,6 +35,8 @@ class Content(db.Model,SerializerMixin):
     flagged = db.Column(db.Boolean, default = False)
     status = db.Column(db.Boolean, default = True)
 
+    comments = db.relationship('Comment',backref = 'content',lazy=True)
+
 class Category(db.Model, SerializerMixin):
     __tablename__ = 'categories'
     id =  db.Column(db.Integer, primary_key = True) 
