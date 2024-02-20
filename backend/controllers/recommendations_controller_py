@@ -7,3 +7,14 @@ def post_recommendation():
     db.session.add(recommendation)
     db.session.commit()
     return jsonify({"message":"recommendation added successfully"})
+
+def get_recommendations():
+    recommendations=[]
+    for recommendation in Recommendation.query.all():
+        recommendation_dict={
+            "id": recommendation.id,
+            "user_id":recommendation.user_id,
+            "content_id": recommendation.content_id
+        }
+        recommendations.append(recommendation_dict)
+    return jsonify(recommendations), 200
