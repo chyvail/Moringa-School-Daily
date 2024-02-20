@@ -21,3 +21,22 @@ class Subscription(Resource):
                     }
             subscriptions.append(subscription_dict)
         return jsonify(subscriptions)
+    
+class SubscriptionByID(Resource):
+    def get(self, id):
+        subscription = Subscription.query.filter_by(id=id).first()
+        subscription_dict={
+                "id":subscription.id,               
+                    "user_id":subscription.user_id,
+                    "category_id":subscription.category_id
+        }
+        return jsonify(subscription_dict)
+    
+    def update(self, id):
+        subscription = Subscription.query.filter_by(id=id).first()
+        data = request.json
+        for field in ["id","user_id","category_id"]:
+            if field in data:
+                setattr(subscription,field,data[field])
+        db.session.commit()
+        return jsonify(["Updated successfully"])

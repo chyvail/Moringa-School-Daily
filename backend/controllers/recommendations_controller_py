@@ -17,7 +17,7 @@ class Recommendation(Resource):
                 "id": recommendation.id,
                 "user_id":recommendation.user_id,
                 "content_id": recommendation.content_id
-            }
+            }            
             recommendations.append(recommendation_dict)
         return jsonify(recommendations), 200
     
@@ -28,7 +28,7 @@ class RecommendationByID(Resource):
                 "id": recommendation.id,
                 "user_id":recommendation.user_id,
                 "content_id": recommendation.content_id
-            }
+        }
         return jsonify(recommendation_dict), 200
 
     def put(self, id):
