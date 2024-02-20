@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
+from sqlalchemy.orm import validates
 
 
 db=SQLAlchemy()
@@ -13,6 +14,14 @@ class User(db.Model,SerializerMixin):
     email = db.Column(db.String(50), unique= True)
     password = db.Column(db.String(50))
     role = db.Column(db.String(50))
+
+    @validates('role')
+    def validate_role(self, key, role):
+        valid_roles = {'ADMIN', 'TECH-WRITER', 'USER'}
+        normalized_role = role.upper()  
+        if role.upper() not in valid_roles:
+            raise ValueError("Role must be 'ADMIN', 'TECH-WRITER' or 'USER'")
+        return normalized_role
 
     comments = db.relationship("Comment" ,backref = 'user',lazy = True)
     contents = db.relationship("Content",back_populates='users',lazy = True)
