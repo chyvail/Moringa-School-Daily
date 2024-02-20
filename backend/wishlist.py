@@ -9,3 +9,15 @@ class Wishlists(Resource):
         db.session.add(wishlist)
         db.session.commit()
         return jsonify(["Wishlist added successfully"])
+    
+    def get_wish():
+        wishlist_items=[]
+        for wishlist in Wishlist.query.all():
+            wishlist_dict={
+                "id":wishlist.id,               
+                    "user_id":wishlist.user_id,
+                    "content_id":wishlist.content_id
+                            
+                    }
+            wishlist_items.append(wishlist_dict)
+        return jsonify(wishlist_items)
