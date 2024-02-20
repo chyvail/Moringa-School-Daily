@@ -18,3 +18,12 @@ def get_recommendations():
         }
         recommendations.append(recommendation_dict)
     return jsonify(recommendations), 200
+
+def get_recommendation(id):
+    recommendation= Recommendation.query.filter_by(id=id).first()
+    recommendation_dict={
+            "id": recommendation.id,
+            "user_id":recommendation.user_id,
+            "content_id": recommendation.content_id
+        }
+    return jsonify(recommendation_dict), 200
