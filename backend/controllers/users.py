@@ -21,7 +21,6 @@ class Users(Resource):
             db.session.add(new_user)
             db.session.commit()
             return make_response(jsonify(new_user.to_dict()),201)
+        else:
+            abort(403, detail="Password and Confirm Password do not match")
     
-class UserLogin(Resource):
-    def post(self):
-        pass
