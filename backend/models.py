@@ -34,3 +34,12 @@ class Category(db.Model, SerializerMixin):
     name = db.Column(db.String(50), unique = True)
 
     contents = db.relationship("Content", backref = 'category', lazy=True)
+    
+class Profile(db.Model,SerializerMixin):
+    __tablename__ = 'profiles'
+    id = db.Column(db.Integer, primary_key = True)
+    profile_picture = db.Column(db.String)
+    bio = db.Column(db.String(200))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),unique = True)
+    
+    
