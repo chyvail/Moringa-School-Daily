@@ -27,3 +27,12 @@ def get_recommendation(id):
             "content_id": recommendation.content_id
         }
     return jsonify(recommendation_dict), 200
+
+def update_recommendation(id):
+    recommendation = Recommendation.query.filter_by(id=id).first()
+    data = request.json
+    for field in ["id","user_id","content_id"]:
+        if field in data:
+            setattr(recommendation,field,data[field])
+    db.session.commit()
+    return jsonify(["Updated successfully"])
