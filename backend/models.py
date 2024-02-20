@@ -27,3 +27,10 @@ class Content(db.Model,SerializerMixin):
     dislikes = db.Column(db.Integer)
     flagged = db.Column(db.Boolean, default = False)
     status = db.Column(db.Boolean, default = True)
+
+class Category(db.Model, SerializerMixin):
+    __tablename__ = 'categories'
+    id =  db.Column(db.Integer, primary_key = True) 
+    name = db.Column(db.String(50), unique = True)
+
+    contents = db.relationship("Content", backref = 'category', lazy=True)
