@@ -59,3 +59,9 @@ class Subscription(db.Model,SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+class Recommendation(db.Model,SerializerMixin):
+    __tablename__ = 'recommendations'
+    id = db.Column(db.Integer, primary_key = True)
+    content_id = db.Column(db.Integer, db.ForeignKey('contents.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
