@@ -14,6 +14,8 @@ class User(db.Model,SerializerMixin):
     password = db.Column(db.String(50))
     role = db.Column(db.String(50))
 
+    comments = db.relationship("Comment" ,backref = 'user',lazy = True)
+
 
 class Content(db.Model,SerializerMixin):
     __tablename__ = 'contents'
