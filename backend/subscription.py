@@ -40,3 +40,9 @@ class SubscriptionByID(Resource):
                 setattr(subscription,field,data[field])
         db.session.commit()
         return jsonify(["Updated successfully"])
+    
+    def delete(self,id):
+        subscription = Subscription.query.filter_by(id=id).first()
+        db.session.delete(subscription)
+        db.session.commit()
+        return jsonify(["Deleted successfully"])
