@@ -24,3 +24,12 @@ def get_categories():
     
     
 
+def get_category(id):
+    category = Category.query.get(id)
+    category_dict={
+               "id":category.id,               
+                "name":category.name
+                          
+                }
+    return jsonify(category_dict)
+
