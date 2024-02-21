@@ -24,7 +24,7 @@ class User(db.Model,SerializerMixin):
         return normalized_role
 
     comments = db.relationship("Comment" ,backref = 'user',lazy = True)
-    #contents = db.relationship("Content",back_populates='users',lazy = True)
+    contents = db.relationship("Content",back_populates='users',lazy = True)
     wishlist = db.relationship("Wishlist", backref='user',uselist = False)
     profile = db.relationship("Profile", backref = "user", uselist=False)
     subscriptions = db.relationship("Subscription",backref = "user",lazy = True)
@@ -89,8 +89,9 @@ class Subscription(db.Model,SerializerMixin):
 
     categories = db.relationship("Category",backref = 'subscription',lazy =True)
 
-class Recommendation(db.Model,SerializerMixin):
+class Recommendation(db.Model, SerializerMixin):
     __tablename__ = 'recommendations'
-    id = db.Column(db.Integer, primary_key = True)
-    content_id = db.Column(db.Integer, db.ForeignKey('contents.id'))
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    content_id = db.Column(db.Integer, db.ForeignKey('contents.id', name='recommendation_content_fk'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', name='recommendation_user_fk'))
+

@@ -41,7 +41,7 @@ class WishlistByID(Resource):
         db.session.commit()
         return make_response(jsonify({"message":"Wishlist updated successfully"}), 201
     )
-    def delete(id):
+    def delete(self,id):
         wishlist = Wishlist.query.filter_by(id=id).first()
         db.session.delete(wishlist)
         db.session.commit()

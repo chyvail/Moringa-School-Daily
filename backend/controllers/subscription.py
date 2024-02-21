@@ -8,7 +8,7 @@ class Subscriptions(Resource):
         subscription = Subscription(category_id=data['category_id'],user_id=data['user_id'])
         db.session.add(subscription)
         db.session.commit()
-        return make_response(jsonify({"message":"subscription updated successfully"}), 201)
+        return make_response(jsonify({"message":"subscription created successfully"}), 201)
     
     def get(self):
         subscriptions_list=[]
@@ -45,5 +45,5 @@ class SubscriptionByID(Resource):
         subscription = Subscription.query.filter_by(id=id).first()
         db.session.delete(subscription)
         db.session.commit()
-        return make_response(jsonify({"message":"subscription updated successfully"}), 200
+        return make_response(jsonify({"message":"subscription deleted successfully"}), 200
 )
