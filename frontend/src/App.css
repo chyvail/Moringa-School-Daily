@@ -182,6 +182,18 @@ nav {
   .hero-top h3 {
     width: 100%;
   }
+
+  .custom-logo {
+    width: 75%;
+  }
+
+  .navbar {
+    padding: 3px !important;
+  }
+
+  .navbar-nav .dropdown-menu {
+    position: absolute;
+  }
 }
 
 /* Medium Screens */
