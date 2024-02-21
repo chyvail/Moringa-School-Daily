@@ -35,7 +35,7 @@ export default function SignIn() {
       localStorage.setItem("accessToken", access);
 
       // Redirect to home
-      history("/");
+      history("/home");
 
     } catch (error) {
       console.error("Login failed:", error.message);
@@ -77,7 +77,7 @@ export default function SignIn() {
               />
             </div>
             <AuthButton name="Sign In" />
-            {error && <div className="alert alert-danger">{error}</div>}
+            {error && <div className="alert alert-danger mt-3">{error}</div>}
           </form>
         </div>
       </div>
