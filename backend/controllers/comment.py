@@ -1,5 +1,5 @@
 from models import Comment,db
-from flask import jsonify,request
+from flask import jsonify,request,make_response
 from flask_restful import Resource
 
 class Comment(Resource):
@@ -8,7 +8,7 @@ class Comment(Resource):
         comment = Comment(comment=data['comment'],user_id=data['user_id'],content_id=data['content_id'])
         db.session.add(comment)
         db.session.commit()
-        return jsonify(["Comment added successfully"])
+        return make_response(jsonify(["Comment added successfully"]),200)
 
 
     def get_comments():
@@ -21,7 +21,7 @@ class Comment(Resource):
                 "content_id":comment.content_id                
                 }
             comments_list.append(comment_dict)
-            return jsonify(comments_list)
+            return make_response(jsonify(comments_list),200)
 
 class CommentByID(Resource):
 
@@ -33,7 +33,7 @@ class CommentByID(Resource):
                "user_id":comment.user_id,
                 "content_id":comment.content_id                
                 }
-        return jsonify(comment_dict)
+        return make_response(jsonify(comment_dict),200)
 
     def update_comment(id):
         comment = Comment.query.filter_by(id=id).first()
@@ -42,13 +42,13 @@ class CommentByID(Resource):
             if field in data:
                  setattr(comment,field,data[field])
         db.session.commit()
-        return jsonify(["Updated successfully"])
+        return make_response(jsonify(["Updated successfully"]),200)
     
     def delete_comment(id):
         comment = Comment.query.filter_by(id=id).first()
         db.session.delete(comment)
         db.session.commit()
-        return jsonify(["Deleted successfully"])
+        return make_response(jsonify(["Deleted successfully"]),200)
 
 
 
