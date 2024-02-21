@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./components/SignIn";
-import Home from "./pages/Home";
+//import Home from "./pages/Home";
 import SignUp from "./components/SignUp";
 import { SchoolContext } from "./contexts/SchoolContext";
 import { useState, useEffect } from "react";
@@ -35,7 +35,7 @@ function App() {
     <SchoolContext.Provider value={{ user, setUser, userEmail, userRole }}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
         </Routes>
