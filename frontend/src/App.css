@@ -20,7 +20,7 @@
   --white: #fff;
   --transition: all 400ms ease;
 
-  --container-width-lg: 95%;
+  --container-width-lg: 96%;
   --container-width-md: 86%;
   --container-width-sm: 90%;
 }
@@ -104,6 +104,33 @@ h3 {
   background: var(--color-secondary);
 }
 
+nav {
+  background-color: var(--color-primary);
+  height: 60px;
+}
+
+.custom-logo img {
+  width: 70%;
+}
+
+.hero-top p {
+  font-weight: 600;
+}
+
+.hero-top h3 {
+  width: 47%;
+  line-height: 1.3em;
+  font-size: 2.6em;
+  font-weight: 600;
+}
+
+.hero-top span {
+  color: var(--color-secondary);
+}
+
+.hero-description {
+  color: #6d6868;
+}
 /* Small Screens */
 @media screen and (max-width: 600px) {
   .auth-image-section {

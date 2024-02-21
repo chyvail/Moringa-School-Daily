@@ -12,7 +12,7 @@ export default function Auth({ children }) {
 
   const backgroundImageStyle = {
     backgroundImage: `url(${
-      location.pathname === "/login" ? signInImage : signUpImage
+      location.pathname === "/login" || location.pathname === "/" ? signInImage : signUpImage
     })`,
     backgroundSize: "cover",
     backgroundPosition: "center",
