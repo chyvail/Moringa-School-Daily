@@ -9,6 +9,8 @@ import { useState, useEffect } from "react";
 function App() {
   // states
   const [user, setUser] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   // session token
   let accessToken = localStorage.getItem("accessToken");
@@ -21,6 +23,8 @@ function App() {
         .then((res) => res.json())
         .then((data) => {
           setUser(data.firstname);
+          setUserEmail(data.email);
+          setUserRole(data.role);
         });
     } else {
       setUser("");
@@ -28,7 +32,7 @@ function App() {
   }, [accessToken]);
 
   return (
-    <SchoolContext.Provider value={{ user, setUser }}>
+    <SchoolContext.Provider value={{ user, setUser, userEmail, userRole }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
