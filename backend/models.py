@@ -43,6 +43,9 @@ class Content(db.Model,SerializerMixin):
     flagged = db.Column(db.Boolean, default = False)
     public_status = db.Column(db.Boolean, default = False)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+
     comments = db.relationship('Comment',backref = 'content',lazy=True)
     #users = db.relationship("User",back_populates = 'contents',lazy=True )
     #recommendations = db.relationship('Recommendation', backref = 'content')
