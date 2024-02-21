@@ -77,7 +77,7 @@ export default function SignIn() {
               />
             </div>
             <AuthButton name="Sign In" />
-            {error && <div className="alert alert-danger">{error}</div>}
+            {error && <div className="alert alert-danger mt-3">{error}</div>}
           </form>
         </div>
       </div>
