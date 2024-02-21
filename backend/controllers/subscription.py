@@ -32,7 +32,7 @@ class SubscriptionByID(Resource):
         }
         return make_response(jsonify(subscription_dict), 200)
     
-    def put(self, id):
+    def patch(self, id):
         subscription = Subscription.query.filter_by(id=id).first()
         data = request.json
         for field in ["id","user_id","category_id"]:

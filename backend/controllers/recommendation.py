@@ -31,7 +31,7 @@ class RecommendationByID(Resource):
             }
         return make_response(jsonify(recommendation_dict), 200)
 
-    def put(self, id):
+    def patch(self, id):
         recommendation = Recommendation.query.filter_by(id=id).first()
         data = request.json
         for field in ["id","user_id","content_id"]:

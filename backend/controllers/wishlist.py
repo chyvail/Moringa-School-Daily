@@ -32,7 +32,7 @@ class WishlistByID(Resource):
         }
         return make_response(jsonify(wishlist_dict), 200)
     
-    def put(self, id):
+    def patch(self, id):
         wishlist = Wishlist.query.filter_by(id=id).first()
         data = request.json
         for field in ["id","user_id","content_id"]:
