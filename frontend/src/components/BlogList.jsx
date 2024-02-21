@@ -1,9 +1,8 @@
+import React, { useState, useEffect } from 'react'; // Importing useState and useEffect hooks from React
 import BlogItem from "./BlogItem";
-import React, { useState, useEffect } from 'react';
-
 
 export default function BlogList(){
-    const [blogs, setBlogs] =useState([]);
+    const [blogs, setBlogs] = useState([]);
     const [userName, setUserName] = useState('');
 
     useEffect(()=>{
@@ -16,7 +15,6 @@ export default function BlogList(){
     useEffect(() => {
         fetchUserData();
       }, []);
-    
 
     const fetchUserData = () => {
         fetch('https://example.com/user')
@@ -29,7 +27,7 @@ export default function BlogList(){
         <div className="container">
           <div className="row">
             <div className="col">
-              <button class="btn btn-primary w-100">Add New Post</button>
+              <button className="btn btn-primary w-100">Add New Post</button> {/* Fixed class attribute */}
             </div>
           </div>
     
@@ -46,9 +44,18 @@ export default function BlogList(){
               </div>
             </div>
           </div> 
-          {blogs.map((blogs,index)=>{
-            return <BlogItem key = {index} src = {blogs.urlToImage} url = {blogs.url} category = {blogs.category} title = {blogs.title} description = {blogs.description} authorIcon="" authorName=""/>
-          })}
+          {blogs.map((blog, index) => ( // Changed variable name from 'blogs' to 'blog'
+            <BlogItem 
+              key={index} 
+              src={blog.urlToImage} 
+              url={blog.url} 
+              category={blog.category} 
+              title={blog.title} 
+              description={blog.description} 
+              authorIcon="" 
+              authorName=""
+            />
+          ))}
         </div>
     )
 }
