@@ -7,13 +7,10 @@ from flask_restful import Resource
 class Contents(Resource):
     def post(self):
         data = request.get_json()
-        published_date_str = data.get('published_date', '')
-        published_date = datetime.strptime(published_date_str, '%Y-%m-%d').date()
-        data['published_date'] = published_date
-        content = Content(title=data['title'],description=data['description'],content_type=data['content_type'],published_date = data['published_date'],content_url=data['content_url'],likes=data['likes'],dislikes=data['dislikes'],flagged=data['flagged'],status=data['status'],user_id=data["user_id"],category_id=data['category_id'])
+        content = Content(title=data['title'],description=data['description'],content_type=data['content_type'],image_url=data['image_url'],user_id=data["user_id"],category_id=data['category_id'])
         db.session.add(content)
         db.session.commit()
-        return make_response(jsonify(["Added successfully"]),200)
+        return make_response(jsonify(content.to_dict()),201)
     
     def get(self):
         content_list=[]
@@ -24,15 +21,14 @@ class Contents(Resource):
                "description":content.description,
                 "content_type":content.content_type,
                 "published_date":content.published_date, 
-                "content_url":content.content_url ,
+                "image_url":content.image_url ,
                 "likes":content.likes,
                 "dislikes":content.dislikes,
                 "flagged":content.flagged,
-                "status":content.status,
+                "public_status	":content.public_status	,
                 "user_id":content.user_id,
                 "category_id":content.category_id,
-                "comments":[comment.comment for comment in content.comments]
-                          
+                "comments":[comment.comment for comment in content.comments]             
             }
             content_list.append(content_dict)
         return make_response(jsonify(content_list),200)
@@ -46,11 +42,11 @@ class ContentByID(Resource):
                "description":content.description,
                 "content_type":content.content_type,
                 "published_date":content.published_date, 
-                "content_url":content.content_url ,
+                "image_url":content.image_url ,
                 "likes":content.likes,
                 "dislikes":content.dislikes,
                 "flagged":content.flagged,
-                "status":content.status,
+                "public_status	":content.public_status	,
                 "user_id":content.user_id,
                 "category_id":content.category_id
                           
@@ -60,7 +56,7 @@ class ContentByID(Resource):
     def patch(self,id):
         content = Content.query.filter_by(id=id).first()
         data = request.get_json()
-        for field in ['id','title','description','content_type','published_date','content_url','likes','dislikes','flagged','status']:
+        for field in ['id','title','description','content_type','published_date','image_url','likes','dislikes','flagged','public_status	']:
             if field in data:
                 setattr(content,field,data[field])
         db.session.commit()

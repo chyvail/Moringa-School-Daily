@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./components/SignIn";
-//import Home from "./pages/Home";
+import Home from "./pages/Home";
 import SignUp from "./components/SignUp";
 import { SchoolContext } from "./contexts/SchoolContext";
 import { useState, useEffect } from "react";
@@ -11,6 +11,7 @@ function App() {
   const [user, setUser] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userRole, setUserRole] = useState("");
+  const [userId, setUserId] = useState("");
 
   // session token
   let accessToken = localStorage.getItem("accessToken");
@@ -25,17 +26,21 @@ function App() {
           setUser(data.firstname);
           setUserEmail(data.email);
           setUserRole(data.role);
+          setUserId(data.id)
         });
     } else {
       setUser("");
     }
-  }, [accessToken]);
+  }, [accessToken, setUser]);
 
   return (
-    <SchoolContext.Provider value={{ user, setUser, userEmail, userRole }}>
+    <SchoolContext.Provider
+      value={{ user, setUser, userEmail, userRole, accessToken, userId }}
+    >
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<SignIn />} />
+          <Route path="/" element={accessToken ? <Home /> : <SignIn />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
         </Routes>

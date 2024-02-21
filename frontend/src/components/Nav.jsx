@@ -37,20 +37,20 @@ export default function Nav() {
               aria-labelledby="navbarDropdownMenuLink"
             >
               <li>
-                <a className="dropdown-item" href="/">
+                <button className="dropdown-item" href="/">
                   {userEmail} | {userRole}
-                </a>
+                </button>
               </li>
               <hr className="mb-0 mt-0"/>
               <li>
-                <a className="dropdown-item" href="/">
+                <button className="dropdown-item" href="/">
                   My profile
-                </a>
+                </button>
               </li>
               <li>
-                <a className="dropdown-item" onClick={handleLogout}>
+                <button className="dropdown-item" onClick={handleLogout}>
                   Logout
-                </a>
+                </button>
               </li>
             </ul>
           </li>
