@@ -23,12 +23,12 @@ class User(db.Model,SerializerMixin):
             raise ValueError("Role must be 'ADMIN', 'TECH-WRITER' or 'USER'")
         return normalized_role
 
-    #comments = db.relationship("Comment" ,backref = 'user',lazy = True)
+    comments = db.relationship("Comment" ,backref = 'user',lazy = True)
     #contents = db.relationship("Content",back_populates='users',lazy = True)
-    #wishlist = db.relationship("Wishlist", backref='user',uselist = False)
-    #profile = db.relationship("Profile", backref = "user",uselist=False)
-    #subscriptions = db.relationship("Subscription",backref = "user",lazy = True)
-    #recommendations = db.relationship("Recommendation", backref='user',lazy=True) 
+    wishlist = db.relationship("Wishlist", backref='user',uselist = False)
+    profile = db.relationship("Profile", backref = "user", uselist=False)
+    subscriptions = db.relationship("Subscription",backref = "user",lazy = True)
+    recommendations = db.relationship("Recommendation", backref='user',lazy=True) 
 
 class Content(db.Model,SerializerMixin):
     __tablename__ = 'contents'
@@ -41,9 +41,9 @@ class Content(db.Model,SerializerMixin):
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
     flagged = db.Column(db.Boolean, default = False)
-    status = db.Column(db.Boolean, default = True)
+    public_status = db.Column(db.Boolean, default = False)
 
-    #comments = db.relationship('Comment',backref = 'content',lazy=True)
+    comments = db.relationship('Comment',backref = 'content',lazy=True)
     #users = db.relationship("User",back_populates = 'contents',lazy=True )
     #recommendations = db.relationship('Recommendation', backref = 'content')
 
