@@ -47,13 +47,14 @@ class Content(db.Model,SerializerMixin):
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
     comments = db.relationship('Comment',backref = 'content',lazy=True)
-    #users = db.relationship("User",back_populates = 'contents',lazy=True )
-    #recommendations = db.relationship('Recommendation', backref = 'content')
+    users = db.relationship("User",back_populates = 'contents',lazy=True )
+    recommendations = db.relationship('Recommendation', backref = 'content')
 
 class Category(db.Model, SerializerMixin):
     __tablename__ = 'categories'
     id =  db.Column(db.Integer, primary_key = True) 
     name = db.Column(db.String(50), unique = True)
+    user_id=db.Column(db.Integer(), db.ForeignKey('users.id'))
 
     #contents = db.relationship("Content", backref = 'category', lazy=True)
     
