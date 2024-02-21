@@ -6,7 +6,7 @@ from flask_restful import Resource
 class Categories(Resource):
     def post(self):
         data = request.get_json()
-        category = Category(name=data['name'])
+        category = Category(name=data['name'],user_id=data['user_id'])
         db.session.add(category)
         db.session.commit()
         return make_response(jsonify(['Category Added successfuly']),200) 
