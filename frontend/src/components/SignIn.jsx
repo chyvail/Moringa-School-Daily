@@ -35,7 +35,7 @@ export default function SignIn() {
       localStorage.setItem("accessToken", access);
 
       // Redirect to home
-      history("/");
+      history("/home");
 
     } catch (error) {
       console.error("Login failed:", error.message);
