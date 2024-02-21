@@ -1,5 +1,5 @@
 from models import Wishlist,db
-from flask import jsonify,request
+from flask import jsonify,request, make_response
 from flask_restful import Resource
 
 class Wishlists(Resource):
@@ -8,7 +8,7 @@ class Wishlists(Resource):
         wishlist = Wishlist(content_id=data['content_id'],user_id=data['user_id'])
         db.session.add(wishlist)
         db.session.commit()
-        return jsonify({"message":"Wishlist added successfully"}), 201
+        return make_response(jsonify({"message":"Wishlist added successfully"}), 201)
     
     def get(self):
         wishlist_items=[]
@@ -20,7 +20,7 @@ class Wishlists(Resource):
             }                          
                     
             wishlist_items.append(wishlist_dict)
-        return jsonify(wishlist_items), 200
+        return make_response(jsonify(wishlist_items), 200)
     
 class WishlistByID(Resource):
     def get(self, id):
@@ -30,7 +30,7 @@ class WishlistByID(Resource):
                     "user_id":wishlist.user_id,
                     "content_id":wishlist.content_id
         }
-        return jsonify(wishlist_dict), 200
+        return make_response(jsonify(wishlist_dict), 200)
     
     def put(self, id):
         wishlist = Wishlist.query.filter_by(id=id).first()
@@ -39,10 +39,10 @@ class WishlistByID(Resource):
             if field in data:
                 setattr(wishlist,field,data[field])
         db.session.commit()
-        return jsonify({"message":"Wishlist updated successfully"}), 201
-    
+        return make_response(jsonify({"message":"Wishlist updated successfully"}), 201
+    )
     def delete(id):
         wishlist = Wishlist.query.filter_by(id=id).first()
         db.session.delete(wishlist)
         db.session.commit()
-        return jsonify({"message":"Wishlist deleted successfully"}), 200
+        return make_response(jsonify({"message":"Wishlist deleted successfully"}), 200)

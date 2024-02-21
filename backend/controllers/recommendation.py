@@ -1,5 +1,5 @@
 from models import Recommendation,db
-from flask import jsonify,request
+from flask import jsonify,request, make_response
 from flask_restful import Resource
 
 class Recommendations(Resource):
@@ -19,7 +19,7 @@ class Recommendations(Resource):
                 "content_id": recommendation.content_id
             }
             recommendations_list.append(recommendation_dict)
-        return jsonify(recommendations_list), 200
+        return make_response(jsonify(recommendations_list), 200)
     
 class RecommendationByID(Resource):
     def get(self, id):
@@ -29,7 +29,7 @@ class RecommendationByID(Resource):
                 "user_id":recommendation.user_id,
                 "content_id": recommendation.content_id
             }
-        return jsonify(recommendation_dict), 200
+        return make_response(jsonify(recommendation_dict), 200)
 
     def put(self, id):
         recommendation = Recommendation.query.filter_by(id=id).first()
@@ -38,10 +38,10 @@ class RecommendationByID(Resource):
             if field in data:
                 setattr(recommendation,field,data[field])
         db.session.commit()
-        return jsonify({"message":"recommendation updated successfully"}), 201
+        return make_response(jsonify({"message":"recommendation updated successfully"}), 201)
 
     def delete(id):
         recommendation = Recommendation.query.filter_by(id=id).first()
         db.session.delete(recommendation)
         db.session.commit()
-        return jsonify({"message":"recommendation deleted successfully"}), 200
+        return make_response(jsonify({"message":"recommendation deleted successfully"}), 200)
