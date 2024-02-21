@@ -1,4 +1,4 @@
-from models import db,Content
+from models import db,Content,Category
 from flask import jsonify,request,make_response
 from datetime import datetime
 from flask_restful import Resource
@@ -27,7 +27,7 @@ class Contents(Resource):
                 "flagged":content.flagged,
                 "public_status	":content.public_status	,
                 "user_id":content.user_id,
-                "category_id":content.category_id,
+                "category_id":[category.name for category in Category.query.filter_by(id=content.category_id)],
                 "comments":[comment.comment for comment in content.comments]             
             }
             content_list.append(content_dict)
