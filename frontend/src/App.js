@@ -11,6 +11,7 @@ function App() {
   const [user, setUser] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userRole, setUserRole] = useState("");
+  const [userId, setUserId] = useState("");
 
   // session token
   let accessToken = localStorage.getItem("accessToken");
@@ -25,14 +26,17 @@ function App() {
           setUser(data.firstname);
           setUserEmail(data.email);
           setUserRole(data.role);
+          setUserId(data.id)
         });
     } else {
       setUser("");
     }
-  }, [accessToken]);
+  }, [accessToken, setUser]);
 
   return (
-    <SchoolContext.Provider value={{ user, setUser, userEmail, userRole }}>
+    <SchoolContext.Provider
+      value={{ user, setUser, userEmail, userRole, accessToken, userId }}
+    >
       <BrowserRouter>
         <Routes>
           <Route path="/" element={accessToken ? <Home /> : <SignIn />} />
