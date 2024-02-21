@@ -1,7 +1,9 @@
 import BlogItem from "./BlogItem";
+import React, { useState, useEffect } from 'react';
+
 
 export default function BlogList(){
-    const [blogs, setBlogs] =usestate([]);
+    const [blogs, setBlogs] =useState([]);
     const [userName, setUserName] = useState('');
 
     useEffect(()=>{
@@ -45,7 +47,7 @@ export default function BlogList(){
             </div>
           </div> 
           {blogs.map((blogs,index)=>{
-            return <BlogItem key = {index} src = {blogs.urlToImage} url = {blogs.url} category = {blogs.category} title = {blogs.title} description = {blogs.description}  />
+            return <BlogItem key = {index} src = {blogs.urlToImage} url = {blogs.url} category = {blogs.category} title = {blogs.title} description = {blogs.description} authorIcon="" authorName=""/>
           })}
         </div>
     )
