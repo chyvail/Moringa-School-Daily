@@ -9,7 +9,7 @@ export default function Navbar(){
               <Logo />
             </a>
             <a className="navbar-brand" href="#">
-            <img src={LogoSVG} alt="Logo" width="40" height="40" align="right" classNameName="d-inline-block align-top rounded-circle" />
+            <img src={LogoSVG} alt="Logo" width="40" height="40" align="right" className="d-inline-block align-top rounded-circle" />
             </a>
           </div>
         </nav>
