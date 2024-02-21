@@ -5,7 +5,7 @@ from flask_restful import Resource
 
 
 class Content(Resource):
-    def post_content():
+    def post(self):
         data = request.get_json()
         published_date_str = data.get('published_date', '')
         published_date = datetime.strptime(published_date_str, '%Y-%m-%d').date()
@@ -15,7 +15,7 @@ class Content(Resource):
         db.session.commit()
         return make_response(jsonify(["Added successfully"]),200)
     
-    def get_contents():
+    def get(self):
         content_list=[]
         for content in Content.query.all():
             content_dict={
@@ -38,7 +38,7 @@ class Content(Resource):
         return make_response(jsonify(content_list),200)
     
 class ContentByID(Resource):
-    def get_content(id):
+    def get(self,id):
         content =  Content.query.filter_by(id=id).first()
         content_dict={
                "id":content.id, 
@@ -57,7 +57,7 @@ class ContentByID(Resource):
             }
         return make_response(jsonify(content_dict),200)
     
-    def update_content(id):
+    def patch(self,id):
         content = Content.query.filter_by(id=id).first()
         data = request.get_json()
         for field in ['id','title','description','content_type','published_date','content_url','likes','dislikes','flagged','status']:
@@ -66,7 +66,7 @@ class ContentByID(Resource):
         db.session.commit()
         return make_response(jsonify('Content updated successfully'),200)
     
-    def delete_content(id):
+    def delete(self,id):
         content = Content.query.get(id)
         db.session.delete(content)
         db.session.commit()

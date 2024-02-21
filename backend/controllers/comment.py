@@ -3,7 +3,7 @@ from flask import jsonify,request,make_response
 from flask_restful import Resource
 
 class Comment(Resource):
-    def post_comment():
+    def post(self):
         data = request.get_json()
         comment = Comment(comment=data['comment'],user_id=data['user_id'],content_id=data['content_id'])
         db.session.add(comment)
@@ -11,7 +11,7 @@ class Comment(Resource):
         return make_response(jsonify(["Comment added successfully"]),200)
 
 
-    def get_comments():
+    def get(self):
         comments_list=[]
         for comment in Comment.query.all():
             comment_dict={
@@ -25,7 +25,7 @@ class Comment(Resource):
 
 class CommentByID(Resource):
 
-    def get_comment(id):
+    def get(self,id):
         comment = Comment.query.filter_by(id=id).first()
         comment_dict={
                "id":comment.id, 
@@ -35,7 +35,7 @@ class CommentByID(Resource):
                 }
         return make_response(jsonify(comment_dict),200)
 
-    def update_comment(id):
+    def patch(self,id):
         comment = Comment.query.filter_by(id=id).first()
         data = request.json
         for field in ["id","comment","user_id","content_id"]:
@@ -44,7 +44,7 @@ class CommentByID(Resource):
         db.session.commit()
         return make_response(jsonify(["Updated successfully"]),200)
     
-    def delete_comment(id):
+    def delete(self,id):
         comment = Comment.query.filter_by(id=id).first()
         db.session.delete(comment)
         db.session.commit()
