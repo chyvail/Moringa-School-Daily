@@ -35,7 +35,7 @@ function App() {
     <SchoolContext.Provider value={{ user, setUser, userEmail, userRole }}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<SignIn />} />
+          <Route path="/" element={accessToken ? <Home /> : <SignIn />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
