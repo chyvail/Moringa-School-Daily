@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "./Logo";
 import Avatar from "./Avatar";
+import { SchoolContext } from "../contexts/SchoolContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Nav() {
+  const { userEmail, userRole, setUser } = useContext(SchoolContext);
+  const history = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setUser("");
+    history("/login")
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark d-flex justify-content-between p-4">
       <div className="custom-logo">
@@ -27,11 +38,17 @@ export default function Nav() {
             >
               <li>
                 <a className="dropdown-item" href="/">
+                  {userEmail} | {userRole}
+                </a>
+              </li>
+              <hr className="mb-0 mt-0"/>
+              <li>
+                <a className="dropdown-item" href="/">
                   My profile
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="/">
+                <a className="dropdown-item" onClick={handleLogout}>
                   Logout
                 </a>
               </li>
