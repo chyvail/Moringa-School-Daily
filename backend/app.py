@@ -5,6 +5,10 @@ from controllers.users import Users,UserLogin,UserById,UserByToken,jwt
 from controllers.recommendation import Recommendations, RecommendationByID
 from controllers.subscription import Subscriptions, SubscriptionByID
 from controllers.wishlist import Wishlists, WishlistByID
+from controllers.category import Categories, CategoryByID
+from controllers.comment import Comments,CommentByID
+from controllers.content import Contents, ContentByID
+from controllers.profile import Profiles,ProfileByID
 from flask_cors import CORS
 from flask_migrate import Migrate
 from datetime import timedelta
@@ -48,6 +52,15 @@ api.add_resource(Users,'/users')
 api.add_resource(UserLogin,'/login')
 api.add_resource(UserById,'/users/<int:id>')
 api.add_resource(UserByToken,'/user-token')
+
+api.add_resource(Categories, '/categories')
+api.add_resource(CategoryByID, '/categories/<int:id>')
+api.add_resource(Comments, '/comments')
+api.add_resource(CommentByID, '/comments/<int:id>')
+api.add_resource(Contents, '/contents')
+api.add_resource(ContentByID, '/contents/<int:id>')
+api.add_resource(Profiles, '/profiles')
+api.add_resource(ProfileByID, '/profiles/<int:id>')
 
 if __name__=='__main__':
     app.run()

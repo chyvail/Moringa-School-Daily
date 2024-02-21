@@ -2,7 +2,7 @@ from models import Comment,db
 from flask import jsonify,request,make_response
 from flask_restful import Resource
 
-class Comment(Resource):
+class Comments(Resource):
     def post(self):
         data = request.get_json()
         comment = Comment(comment=data['comment'],user_id=data['user_id'],content_id=data['content_id'])
@@ -18,10 +18,11 @@ class Comment(Resource):
                "id":comment.id, 
                "comment":comment.comment, 
                "user_id":comment.user_id,
-                "content_id":comment.content_id                
-                }
+                "content_id":comment.content_id
+            }               
+                
             comments_list.append(comment_dict)
-            return make_response(jsonify(comments_list),200)
+        return make_response(jsonify(comments_list),200)
 
 class CommentByID(Resource):
 

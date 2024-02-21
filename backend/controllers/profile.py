@@ -3,7 +3,7 @@ from models import Profile,db
 from flask_restful import Resource
 
 
-class Profile(Resource):
+class Profiles(Resource):
     def post(self):
         data = request.get_json()
         profile = Profile(profile_picture = data['profile_picture'],bio = data['bio'],user_id=data['user_id'])
@@ -14,13 +14,14 @@ class Profile(Resource):
     def get(self):    
         profiles_list=[]
         for profile in Profile.query.all():
-             profile_dict = {
+
+            profile_dict = {
             "id":profile.id,
             "profile_picture":profile.profile_picture,
             "bio":profile.bio,
             "user_id":profile.user_id
-        }
-        profiles_list.append(profile_dict)
+            }
+            profiles_list.append(profile_dict)
         return make_response(jsonify(profiles_list),200)
     
 

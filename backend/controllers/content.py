@@ -4,7 +4,7 @@ from datetime import datetime
 from flask_restful import Resource
 
 
-class Content(Resource):
+class Contents(Resource):
     def post(self):
         data = request.get_json()
         published_date_str = data.get('published_date', '')

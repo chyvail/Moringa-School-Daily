@@ -3,7 +3,7 @@ from models import Category,db
 from flask_restful import Resource
 
 #Creating/Posting category
-class Category(Resource):
+class Categories(Resource):
     def post(self):
         data = request.get_json()
         category = Category(name=data['name'])
@@ -14,15 +14,15 @@ class Category(Resource):
     
 #Getting all categories
     def get(self):
-        categories=[]
+        category_list=[]
         for category in Category.query.all():
             category_dict={
                "id":category.id,               
                 "name":category.name
                           
                 }
-            categories.append(category_dict)
-        return make_response(jsonify(categories),200)
+            category_list.append(category_dict)
+        return make_response(jsonify(category_list),200)
     
     
 class CategoryByID(Resource):
