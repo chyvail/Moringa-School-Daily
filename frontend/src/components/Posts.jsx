@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Avatar from "./Avatar";
+import { Link } from "react-router-dom";
 
 export default function Posts() {
   const [postData, setPostData] = useState([]);
@@ -37,7 +38,7 @@ export default function Posts() {
                 {post.category_id}
                 <span> . 5 min read</span>
               </p>
-              <h4 className="post-title">{post.title}</h4>
+              <Link to={`/posts/${post.id}`}><h4 className="post-title">{post.title}</h4></Link>
               <p className="post-description">{post.description}</p>
               <div className="custom-avatar">
                 <Avatar height={40} alt="User Avatar" />{" "}

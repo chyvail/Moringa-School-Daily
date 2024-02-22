@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import SignUp from "./components/SignUp";
 import { SchoolContext } from "./contexts/SchoolContext";
 import { useState, useEffect } from "react";
+import SinglePost from "./pages/SinglePost";
 
 function App() {
   // states
@@ -43,6 +44,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
+          <Route path="/posts/:id" element={<SinglePost />} />
         </Routes>
       </BrowserRouter>
     </SchoolContext.Provider>
