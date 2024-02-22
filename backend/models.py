@@ -25,10 +25,10 @@ class User(db.Model,SerializerMixin):
 
     comments = db.relationship("Comment" ,backref = 'user',lazy = True)
     contents = db.relationship("Content",back_populates='users',lazy = True)
-    wishlist = db.relationship("Wishlist", backref='user',uselist = False)
-    profile = db.relationship("Profile", backref = "user", uselist=False)
-    subscriptions = db.relationship("Subscription",backref = "user",lazy = True)
-    recommendations = db.relationship("Recommendation", backref='user',lazy=True) 
+    #wishlist = db.relationship("Wishlist", backref='user',uselist = False)
+    #profile = db.relationship("Profile", backref = "user", uselist=False)
+   # subscriptions = db.relationship("Subscription",backref = "user",lazy = True)
+   # recommendations = db.relationship("Recommendation", backref='user',lazy=True) 
 
 class Content(db.Model,SerializerMixin):
     __tablename__ = 'contents'
@@ -37,9 +37,9 @@ class Content(db.Model,SerializerMixin):
     description = db.Column(db.String(350))
     content_type = db.Column(db.String(50))
     published_date = db.Column(db.DateTime, default=datetime.utcnow) 
-    content_url = db.Column(db.String(250))
-    likes = db.Column(db.Integer)
-    dislikes = db.Column(db.Integer)
+    image_url = db.Column(db.String(250))
+    likes = db.Column(db.Integer, default=0)
+    dislikes = db.Column(db.Integer, default=0)
     flagged = db.Column(db.Boolean, default = False)
     public_status = db.Column(db.Boolean, default = False)
 
@@ -47,9 +47,8 @@ class Content(db.Model,SerializerMixin):
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
     comments = db.relationship('Comment',backref = 'content',lazy=True)
-    users = db.relationship("User",back_populates = 'contents',lazy=True )
-    recommendations = db.relationship('Recommendation', backref = 'content')
-    categories=db.relationship('Category', backref='user')
+    #users = db.relationship("User",back_populates = 'contents',lazy=True )
+    #recommendations = db.relationship('Recommendation', backref = 'content')
 
 class Category(db.Model, SerializerMixin):
     __tablename__ = 'categories'
@@ -91,7 +90,6 @@ class Subscription(db.Model,SerializerMixin):
 
 class Recommendation(db.Model, SerializerMixin):
     __tablename__ = 'recommendations'
-    id = db.Column(db.Integer, primary_key=True)
-    content_id = db.Column(db.Integer, db.ForeignKey('contents.id', name='recommendation_content_fk'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', name='recommendation_user_fk'))
-
+    id = db.Column(db.Integer, primary_key = True)
+    content_id = db.Column(db.Integer, db.ForeignKey('contents.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
