@@ -39,7 +39,8 @@ class Home(Resource):
         return response
 
 api.add_resource(Home, '/')
-api.add_resource(RecommendationByID, '/recommendations<int:id>')
+api.add_resource(Recommendations, '/recommendations')
+api.add_resource(RecommendationByID, '/recommendations/<int:id>')
 api.add_resource(Subscriptions, '/subscriptions')
 api.add_resource(SubscriptionByID, '/subscriptions/<int:id>')
 api.add_resource(Wishlists, '/wishlists')
