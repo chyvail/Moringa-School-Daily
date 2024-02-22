@@ -7,7 +7,9 @@ from flask_restful import Resource
 class Contents(Resource):
     def post(self):
         data = request.get_json()
-        content = Content(title=data['title'],description=data['description'],content_type=data['content_type'],image_url=data['image_url'],user_id=data["user_id"],category_id=data['category_id'])
+        content = Content(title=data['title'],description=data['description'],
+                          content_type=data['content_type'],image_url=data['image_url'],
+                          user_id=data["user_id"],category_id=data['category_id'])
         db.session.add(content)
         db.session.commit()
         return make_response(jsonify(content.to_dict()),201)
