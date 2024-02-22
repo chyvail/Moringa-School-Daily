@@ -24,7 +24,7 @@ class User(db.Model,SerializerMixin):
         return normalized_role
 
     comments = db.relationship("Comment" ,backref = 'user',lazy = True)
-    contents = db.relationship("Content",back_populates='users',lazy = True)
+    #contents = db.relationship("Content",back_populates='users',lazy = True)
     #wishlist = db.relationship("Wishlist", backref='user',uselist = False)
     #profile = db.relationship("Profile", backref = "user", uselist=False)
    # subscriptions = db.relationship("Subscription",backref = "user",lazy = True)
