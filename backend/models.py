@@ -49,7 +49,6 @@ class Content(db.Model,SerializerMixin):
     comments = db.relationship('Comment',backref = 'content',lazy=True)
     #users = db.relationship("User",back_populates = 'contents',lazy=True )
     #recommendations = db.relationship('Recommendation', backref = 'content')
-    #categories=db.relationship('Category', backref='user')
 
 class Category(db.Model, SerializerMixin):
     __tablename__ = 'categories'
@@ -91,6 +90,6 @@ class Subscription(db.Model,SerializerMixin):
 
 class Recommendation(db.Model, SerializerMixin):
     __tablename__ = 'recommendations'
-    id = db.Column(db.Integer, primary_key=True)
-    content_id = db.Column(db.Integer, db.ForeignKey('contents.id', name='recommendation_content_fk'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', name='recommendation_user_fk'))
+    id = db.Column(db.Integer, primary_key = True)
+    content_id = db.Column(db.Integer, db.ForeignKey('contents.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
