@@ -8,7 +8,6 @@ export default function ContentModal() {
     description: "",
     content_type: "",
     image_url: "",
-    user_id: userId,
     category_id: "",
   });
 
@@ -21,7 +20,7 @@ export default function ContentModal() {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ ...formData, user_id: userId }),
     })
       .then((response) => {
         if (!response.ok) {

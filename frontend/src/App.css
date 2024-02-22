@@ -169,6 +169,13 @@ nav {
   height: 40px;
   width: 40px;
 }
+
+.single-post h3 {
+  line-height: 1.3em;
+  font-size: 2.6em;
+  font-weight: 600;
+}
+
 /* Small Screens */
 @media screen and (max-width: 600px) {
   .auth-image-section {

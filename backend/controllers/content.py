@@ -1,4 +1,4 @@
-from models import db,Content,Category
+from models import db,Content,Category,User
 from flask import jsonify,request,make_response
 from datetime import datetime
 from flask_restful import Resource
@@ -17,6 +17,11 @@ class Contents(Resource):
     def get(self):
         content_list=[]
         for content in Content.query.all():
+            user = User.query.filter_by(id=content.user_id).first()
+            if user:
+                added_by = {"firstname": user.firstname, "lastname": user.lastname}
+            else:
+                added_by = {}
             content_dict={
                "id":content.id, 
                "title":content.title, 
@@ -27,8 +32,8 @@ class Contents(Resource):
                 "likes":content.likes,
                 "dislikes":content.dislikes,
                 "flagged":content.flagged,
-                "public_status	":content.public_status	,
-                "user_id":content.user_id,
+                "public_status":content.public_status,
+                "added_by": added_by,
                 "category_id":[category.name for category in Category.query.filter_by(id=content.category_id)],
                 "comments":[comment.comment for comment in content.comments]             
             }
