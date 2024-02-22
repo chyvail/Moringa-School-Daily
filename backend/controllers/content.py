@@ -43,21 +43,25 @@ class Contents(Resource):
 class ContentByID(Resource):
     def get(self,id):
         content =  Content.query.filter_by(id=id).first()
+        user = User.query.filter_by(id=content.user_id).first()
+        if user:
+            added_by = {"firstname": user.firstname, "lastname": user.lastname}
+        else:
+            added_by = {}
         content_dict={
-               "id":content.id, 
-               "title":content.title, 
-               "description":content.description,
-                "content_type":content.content_type,
-                "published_date":content.published_date, 
-                "image_url":content.image_url ,
-                "likes":content.likes,
-                "dislikes":content.dislikes,
-                "flagged":content.flagged,
-                "public_status	":content.public_status	,
-                "user_id":content.user_id,
-                "category_id":content.category_id
-                          
-            }
+            "id":content.id, 
+            "title":content.title, 
+            "description":content.description,
+            "content_type":content.content_type,
+            "published_date":content.published_date, 
+            "image_url":content.image_url ,
+            "likes":content.likes,
+            "dislikes":content.dislikes,
+            "flagged":content.flagged,
+            "public_status	":content.public_status	,
+            "added_by": added_by,
+            "category_id":[category.name for category in Category.query.filter_by(id=content.category_id)]
+        }
         return make_response(jsonify(content_dict),200)
     
     def patch(self,id):
