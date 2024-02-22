@@ -11,7 +11,7 @@ class Contents(Resource):
             published_date_str = data.get('published_date', '')
             published_date = datetime.strptime(published_date_str, '%Y-%m-%d').date()
             data['published_date'] = published_date
-            content = Content(title=data['title'], description=data['description'], content_type=data['content_type'], published_date=data['published_date'], content_url=data['content_url'], likes=data['likes'], dislikes=data['dislikes'], flagged=data['flagged'], status=data['status'], user_id=data["user_id"], category_id=data['category_id'])
+            content = Content(title=data['title'], description=data['description'], content_type=data['content_type'], published_date=data['published_date'], content_url=data['content_url'], likes=data['likes'], dislikes=data['dislikes'], flagged=data['flagged'], public_status=data['public_status'], user_id=data["user_id"], category_id=data['category_id'])
             db.session.add(content)
             db.session.commit()
             return make_response(jsonify(["Added successfully"]), 200)
