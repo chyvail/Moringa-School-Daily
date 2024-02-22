@@ -4,18 +4,14 @@ from flask_restful import Resource
 
 class Categories(Resource):
     def post(self):
-        try:
-            data = request.get_json()
-            category = Category(name=data['name'])
-            db.session.add(category)
-            db.session.commit()
-            return make_response(jsonify(['Category Added successfully']), 200) 
-        except KeyError:
-            return make_response(jsonify({'error': 'Missing required field'}), 400)
-        except Exception as e:
-            db.session.rollback()
-            return make_response(jsonify({'error': str(e)}), 500)
-
+        data = request.get_json()
+        category = Category(name=data['name'])
+        db.session.add(category)
+        db.session.commit()
+        return make_response(jsonify(['Category Added successfuly']),200) 
+       
+    
+#Getting all categories
     def get(self):
         try:
             category_list = []
