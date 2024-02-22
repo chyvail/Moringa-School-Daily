@@ -1,7 +1,7 @@
 from flask import Flask, request, make_response, jsonify
 from flask_restful import Api, Resource, abort
 from flask_bcrypt import Bcrypt
-from models import User,db
+from models import User,db,Profile
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 bcrypt = Bcrypt()
@@ -9,8 +9,24 @@ jwt = JWTManager()
 
 class Users(Resource):
     def get(self):
-        users_dict = [users.to_dict() for users in User.query.all()]
-        return make_response(jsonify(users_dict), 200)
+        users_list = []
+        profiles = {profile.user_id: profile for profile in Profile.query.all()}
+        for user in User.query.all():
+            profile_info = profiles.get(user.id)
+            user_dict = {
+                "id": user.id,
+                "firstname": user.firstname,
+                "lastname": user.lastname,
+                "role": user.role,
+                "email": user.email,
+                "comments": [comment.comment for comment in user.comments],
+                "profile": {
+                    "bio": profile_info.bio if profile_info else None,
+                    "profile_picture": profile_info.profile_picture if profile_info else None
+                }
+            }
+            users_list.append(user_dict)
+        return make_response(jsonify(users_list), 200)
     
     def post(self):
         data = request.get_json()
