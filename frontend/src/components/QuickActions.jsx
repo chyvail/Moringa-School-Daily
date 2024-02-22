@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ContentModal from "./ContentModal";
 import CategoryModal from "./modals/CategoryModal";
+import ProfileModal from "./modals/ProfileModal";
 
 export default function QuickActions() {
   const handleContentSubmit = (id) => {
@@ -16,12 +17,19 @@ export default function QuickActions() {
         </Link>
         <Link
           className="ms-3"
+          onClick={() => handleContentSubmit("profileModal")}
+        >
+          Update Profile
+        </Link>
+        <Link
+          className="ms-3"
           onClick={() => handleContentSubmit("categoryModal")}
         >
           Add Category
         </Link>
         <ContentModal />
         <CategoryModal />
+        <ProfileModal />
       </div>
     </div>
   );
