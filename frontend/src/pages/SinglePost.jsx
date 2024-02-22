@@ -1,6 +1,6 @@
 // SinglePost.js
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Nav from "../components/Nav";
 import Avatar from "../components/Avatar";
 
@@ -36,15 +36,28 @@ export default function SinglePost() {
   return (
     <>
       <Nav />
+      <div className="quick-actions pt-2 pb-2">
+        <div className="container-lgs quick-links">
+          <Link to="/"> {"< "} Back to HomePage</Link>
+        </div>
+      </div>
       <div className="container-lgs single-post">
         <div className="text-center">
-          <p className="mb-0">
-            {post.category_id}
-            <span> . 5 min read</span>
-          </p>
+          <div className="hero-top mt-4">
+            <p className="mb-0">
+              {post.category_id}
+              <span> . 5 min read</span>
+            </p>
+          </div>
           <h3>{post.title}</h3>
-          <Avatar height={40}/>
+          <Avatar height={40} />
+          <strong>{`${post.added_by.firstname} ${post.added_by.lastname}`}</strong>
         </div>
+      </div>
+      <div className="post-image mt-3">
+        <img src={post.image_url} alt=""></img>
+      </div>
+      <div className="container-lgs">
         <p className="text-center mt-5">{post.description}</p>
       </div>
     </>
