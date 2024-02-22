@@ -26,12 +26,12 @@ function App() {
           setUser(data.firstname);
           setUserEmail(data.email);
           setUserRole(data.role);
-          setUserId(data.id)
+          setUserId(data.id);
         });
     } else {
       setUser("");
     }
-  }, [accessToken, setUser]);
+  }, [accessToken, setUser, userId, userRole, userEmail]);
 
   return (
     <SchoolContext.Provider
