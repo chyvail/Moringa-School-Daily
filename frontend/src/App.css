@@ -177,15 +177,32 @@ nav {
 }
 
 strong {
-  font-weight: 700;
+  font-weight: 600;
   margin-left: 8px;
   color: #272626;
 }
 
-.post-image img{
+.post-image img {
   height: 350px;
   width: 100%;
   object-fit: cover;
+}
+
+.comments-icons {
+  display: flex !important;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: baseline;
+}
+
+.comments-icons i {
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.comment-user {
+  text-align: right;
+  color: var(--gray-variant);
 }
 
 /* Small Screens */
@@ -213,6 +230,11 @@ strong {
   .navbar-nav .dropdown-menu {
     position: absolute;
   }
+
+  .offcanvas-end{
+    width: 100%;
+  }
+  
 }
 
 /* Medium Screens */

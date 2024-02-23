@@ -14,7 +14,7 @@ export default function Posts() {
           postData.map((post) => (
             <div
               key={post.id}
-              className="col-sm-12 col-md-6 col-lg-4 blog-image"
+              className="col-sm-12 col-md-6 col-lg-4 blog-image mb-2"
             >
               <img src={post.image_url} alt="" />
               <p className="mt-3">

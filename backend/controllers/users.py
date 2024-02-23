@@ -56,10 +56,24 @@ class UserLogin(Resource):
 
 class UserById(Resource):
     def get(self,id):
-        user = User.query.get(id)
-        if not user:
-            abort(404, detail = f'User with {id=} does not exist')
-        return user.to_dict()
+        users_list = []
+        profiles = {profile.user_id: profile for profile in Profile.query.filter_by(id=id)}
+        for user in User.query.filter_by(id=id):
+            profile_info = profiles.get(user.id)
+            user_dict = {
+                "id": user.id,
+                "firstname": user.firstname,
+                "lastname": user.lastname,
+                "role": user.role,
+                "email": user.email,
+                "comments": [comment.comment for comment in user.comments],
+                "profile": {
+                    "bio": profile_info.bio if profile_info else None,
+                    "profile_picture": profile_info.profile_picture if profile_info else None
+                }
+            }
+            users_list.append(user_dict)
+        return make_response(jsonify(users_list), 200)
     
     def patch(self,id):
         user = User.query.get(id)

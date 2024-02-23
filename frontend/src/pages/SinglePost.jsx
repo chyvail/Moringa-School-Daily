@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Nav from "../components/Nav";
 import Avatar from "../components/Avatar";
+import Comments from "../components/Comments";
 
 export default function SinglePost() {
   const { id } = useParams();
@@ -33,6 +34,7 @@ export default function SinglePost() {
     return <p>Loading...</p>;
   }
 
+  console.log(post.comments)
   return (
     <>
       <Nav />
@@ -59,6 +61,7 @@ export default function SinglePost() {
       </div>
       <div className="container-lgs">
         <p className="text-center mt-5">{post.description}</p>
+        <Comments comments={post.comments}/>
       </div>
     </>
   );

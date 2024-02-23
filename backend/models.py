@@ -23,7 +23,7 @@ class User(db.Model,SerializerMixin):
             raise ValueError("Role must be 'ADMIN', 'TECH-WRITER' or 'USER'")
         return normalized_role
 
-    comments = db.relationship("Comment" ,backref = 'user',lazy = True)
+    #comments = db.relationship("Comment" ,backref = 'user',lazy = True)
     #contents = db.relationship("Content",back_populates='users',lazy = True)
     #wishlist = db.relationship("Wishlist", backref='user',uselist = False)
     #profile = db.relationship("Profile", backref = "user", uselist=False)
@@ -46,7 +46,7 @@ class Content(db.Model,SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
-    comments = db.relationship('Comment',backref = 'content',lazy=True)
+    #comments = db.relationship('Comment',backref = 'content',lazy=True)
     #users = db.relationship("User",back_populates = 'contents',lazy=True )
     #recommendations = db.relationship('Recommendation', backref = 'content')
 
