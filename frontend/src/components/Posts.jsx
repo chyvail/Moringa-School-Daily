@@ -1,32 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
+import { SchoolContext } from "../contexts/SchoolContext";
 
 export default function Posts() {
-  const [postData, setPostData] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch("/contents")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setPostData(data);
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
-  }, []);
+  const { postData } = useContext(SchoolContext);
 
   return (
     <div className="container-lgs hero-top">
       <p>All Blog Posts</p>
       <div className="row">
-        {error && <p>{error}</p>}
         {postData.length > 0 ? (
           postData.map((post) => (
             <div
@@ -38,7 +21,9 @@ export default function Posts() {
                 {post.category_id}
                 <span> . 5 min read</span>
               </p>
-              <Link to={`/posts/${post.id}`}><h4 className="post-title">{post.title}</h4></Link>
+              <Link to={`/posts/${post.id}`}>
+                <h4 className="post-title">{post.title}</h4>
+              </Link>
               <p className="post-description">{post.description}</p>
               <div className="custom-avatar">
                 <Avatar height={40} alt="User Avatar" />{" "}
@@ -48,7 +33,7 @@ export default function Posts() {
           ))
         ) : (
           <div className="text-center">
-            No posts Available. Create one by clicking on 
+            No posts Available. Create one by clicking on
             <span>Add New Post</span>
           </div>
         )}
