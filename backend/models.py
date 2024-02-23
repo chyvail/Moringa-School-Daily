@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
 from sqlalchemy.orm import validates
+import re
 
 
 db=SQLAlchemy()
@@ -22,6 +23,13 @@ class User(db.Model,SerializerMixin):
         if role.upper() not in valid_roles:
             raise ValueError("Role must be 'ADMIN', 'TECH-WRITER' or 'USER'")
         return normalized_role
+    
+    @validates('email')
+    def validate_email(self, key, email):
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            raise ValueError("Invalid email address")
+        return email
+    
 
     #comments = db.relationship("Comment" ,backref = 'user',lazy = True)
     #contents = db.relationship("Content",back_populates='users',lazy = True)

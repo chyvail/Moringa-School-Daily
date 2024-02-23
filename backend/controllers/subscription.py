@@ -50,6 +50,7 @@ class SubscriptionByID(Resource):
             db.session.commit()
             return make_response((jsonify({"message":"subscription updated successfully"}), 201))
         return make_response(jsonify({"error":"subscription not found"}), 404)
+    
     def delete(self,id):
         subscription = Subscription.query.filter_by(id=id).first()
         if subscription:
