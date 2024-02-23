@@ -1,8 +1,9 @@
 import React from "react";
+import avatarLogo from '../assets/bussiness-man.png'
 
 export default function Avatar({
   height,
-  src = "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp",
+  src = avatarLogo,
   alt,
 }) {
   return (

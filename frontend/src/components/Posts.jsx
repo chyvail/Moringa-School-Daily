@@ -9,11 +9,11 @@ export default function Posts() {
   return (
     <div className="container-lgs hero-top">
       <p>All Blog Posts</p>
-      <div className="row">
+      <div className="row g-2">
         {postData.length > 0 ? (
           postData.map((post) => (
             <div
-              key={post.title}
+              key={post.id}
               className="col-sm-12 col-md-6 col-lg-4 blog-image"
             >
               <img src={post.image_url} alt="" />
