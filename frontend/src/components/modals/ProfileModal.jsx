@@ -9,7 +9,6 @@ export default function ProfileModal() {
     bio: "",
   });
 
-  console.log(userId)
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);

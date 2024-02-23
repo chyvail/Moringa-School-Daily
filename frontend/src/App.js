@@ -13,6 +13,7 @@ function App() {
   const [userEmail, setUserEmail] = useState("");
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
+  const [postData, setPostData] = useState([]);
 
   // session token
   let accessToken = localStorage.getItem("accessToken");
@@ -24,7 +25,7 @@ function App() {
       })
         .then((res) => res.json())
         .then((data) => {
-          setUser(data.firstname);
+          setUser(`${data.firstname} ${data.lastname}`);
           setUserEmail(data.email);
           setUserRole(data.role);
           setUserId(data.id);
@@ -34,9 +35,32 @@ function App() {
     }
   }, [accessToken, setUser, userId, userRole, userEmail]);
 
+  // get posts
+
+  useEffect(() => {
+    fetch("/contents")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPostData(data);
+      });
+  }, []);
+
   return (
     <SchoolContext.Provider
-      value={{ user, setUser, userEmail, userRole, accessToken, userId }}
+      value={{
+        user,
+        setUser,
+        userEmail,
+        userRole,
+        accessToken,
+        userId,
+        postData,
+      }}
     >
       <BrowserRouter>
         <Routes>
