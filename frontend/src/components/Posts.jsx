@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
 import { SchoolContext } from "../contexts/SchoolContext";

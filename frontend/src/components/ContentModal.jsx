@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { SchoolContext } from "../contexts/SchoolContext";
 
 export default function ContentModal() {
-  const { accessToken, userId, postData } = useContext(SchoolContext);
+  const { accessToken, userId } = useContext(SchoolContext);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
