@@ -19,7 +19,6 @@ class Users(Resource):
                 "lastname": user.lastname,
                 "role": user.role,
                 "email": user.email,
-                "comments": [comment.comment for comment in user.comments],
                 "profile": {
                     "bio": profile_info.bio if profile_info else None,
                     "profile_picture": profile_info.profile_picture if profile_info else None
@@ -66,7 +65,6 @@ class UserById(Resource):
                 "lastname": user.lastname,
                 "role": user.role,
                 "email": user.email,
-                "comments": [comment.comment for comment in user.comments],
                 "profile": {
                     "bio": profile_info.bio if profile_info else None,
                     "profile_picture": profile_info.profile_picture if profile_info else None
