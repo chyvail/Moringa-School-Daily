@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./components/SignIn";
 import Home from "./pages/Home";
 import SignUp from "./components/SignUp";
+import Footer from "./components/Footer";
 import { SchoolContext } from "./contexts/SchoolContext";
 import { useState, useEffect } from "react";
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </SchoolContext.Provider>
   );

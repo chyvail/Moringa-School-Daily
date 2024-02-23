@@ -34,7 +34,7 @@ export default function Posts() {
                 key={post.title}
                 className="col-sm-12 col-md-6 col-lg-4 blog-image"
               >
-                <img src={img_url} alt="" />
+                <img src={post.image_url} alt="" />
                 <p className="mt-3">
                   {post.category_id}
                   <span> . 5 min read</span>
