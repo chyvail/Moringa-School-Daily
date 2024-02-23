@@ -25,7 +25,7 @@ function App() {
       })
         .then((res) => res.json())
         .then((data) => {
-          setUser(data.firstname);
+          setUser(`${data.firstname} ${data.lastname}`);
           setUserEmail(data.email);
           setUserRole(data.role);
           setUserId(data.id);

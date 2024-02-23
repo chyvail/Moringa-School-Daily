@@ -34,7 +34,6 @@ export default function SinglePost() {
     return <p>Loading...</p>;
   }
 
-  console.log(post.comments)
   return (
     <>
       <Nav />

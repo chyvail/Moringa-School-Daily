@@ -1,8 +1,46 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Avatar from "./Avatar";
 import AuthButton from "./AuthButton";
+import { useParams } from "react-router-dom";
+import { SchoolContext } from "../contexts/SchoolContext";
 
 export default function Comments({ comments }) {
+  const { id } = useParams();
+  const { accessToken, userId, user } = useContext(SchoolContext);
+  const [formData, setFormData] = useState({
+    comment: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    fetch("/comments", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...formData, user_id: userId, content_id: id }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then(() => {
+        alert("Post added successfully");
+        console.log("Profile added successfully");
+      })
+      .catch((error) => {
+        console.error("Error adding profile:", error.message);
+      });
+  };
+
+  const handleOnChange = (e) => {
+    const key = e.target.id;
+    setFormData({ ...formData, [key]: e.target.value });
+  };
   return (
     <div className="comments-posting">
       <div className="d-flex justify-content-center">
@@ -42,22 +80,25 @@ export default function Comments({ comments }) {
         </div>
         <div className="offcanvas-body">
           <Avatar height={40} />
-          <strong>Joshua Omwami Smith</strong>
-          <div className="mt-3">
-            <textarea
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              placeholder="What are your Thoughts"
-              required
-            />
-          </div>
-          <div className="mt-3">
-            <AuthButton name="Comment" />
-          </div>
+          <strong>{user}</strong>
+          <form onSubmit={handleSubmit}>
+            <div className="mt-3">
+              <textarea
+                className="form-control"
+                id="comment"
+                aria-describedby="comment section"
+                placeholder="What are your Thoughts"
+                required
+                onChange={handleOnChange}
+              />
+            </div>
+            <div className="mt-3">
+              <AuthButton name="Comment" />
+            </div>
+          </form>
           <hr />
           {comments.length > 0
-            ? comments.map((comment,index) => (
+            ? comments.map((comment, index) => (
                 <div key={index}>
                   <p className="mb-0">{comment.comment}</p>
                   <p className="comment-user mt-0">~ By {comment.user}</p>

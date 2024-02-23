@@ -24,7 +24,7 @@ class Contents(Resource):
             user = User.query.filter_by(id=content.user_id).first()
             added_by = {"firstname": user.firstname, "lastname": user.lastname} if user else {}
             comments = Comment.query.filter_by(content_id=content.id).all()
-            post_comments = [{"comment": comment.comment, "user": comment.user_id } for comment in comments]
+            post_comments = [{"comment": comment.comment, "user": User.query.filter_by(id=comment.user_id).first().firstname } for comment in comments]
             content_dict = {
                 "id": content.id,
                 "title": content.title,
@@ -49,7 +49,7 @@ class ContentByID(Resource):
         user = User.query.filter_by(id=content.user_id).first()
         added_by = {"firstname": user.firstname, "lastname": user.lastname} if user else {}
         comments = Comment.query.filter_by(content_id=content.id).all()
-        post_comments = [{"comment": comment.comment, "user": comment.user_id } for comment in comments]
+        post_comments = [{"comment": comment.comment, "user": User.query.filter_by(id=comment.user_id).first().email } for comment in comments]
         content_dict = {
             "id": content.id,
             "title": content.title,
