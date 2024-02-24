@@ -215,6 +215,19 @@ strong {
   color: var(--gray-variant);
 }
 
+.categories {
+  background: #d9d9d9;
+  padding: 5px;
+  border-radius: 18px;
+  font-size: 13px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.categories:active{
+  background: var(--color-secondary);
+}
+
 /* Small Screens */
 @media screen and (max-width: 600px) {
   .auth-image-section {
@@ -241,10 +254,9 @@ strong {
     position: absolute;
   }
 
-  .offcanvas-end{
+  .offcanvas-end {
     width: 100%;
   }
-  
 }
 
 /* Medium Screens */

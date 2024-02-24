@@ -3,6 +3,7 @@ import Nav from '../components/Nav'
 import Hero from '../components/Hero'
 import QuickActions from '../components/QuickActions'
 import Posts from '../components/Posts'
+import Categories from '../components/Categories'
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Nav />
       <QuickActions />
       <Hero />
+      <Categories />
       <Posts />
     </>
   )
