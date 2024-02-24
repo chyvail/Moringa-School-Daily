@@ -3,7 +3,8 @@ import { SchoolContext } from "../contexts/SchoolContext";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
-  const { accessToken } = useContext(SchoolContext);
+  const { accessToken, setPostData } = useContext(SchoolContext);
+
   useEffect(() => {
     fetch("/categories", {
       headers: {
@@ -15,11 +16,28 @@ export default function Categories() {
       .then((data) => setCategories(data))
       .catch((error) => console.log("error is", error.message));
   }, [accessToken]);
+
+  const handleFilter = (id) => {
+    fetch(`/contents/category/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setPostData(data))
+      .catch((error) => console.log("error is", error.message));
+  };
+
   return (
     <div className="mt-3 container-lgs mb-3">
       {categories &&
         categories.map((category) => (
-          <p key={category.id} className="categories mb-0 me-2">
+          <p
+            key={category.id}
+            className="categories mb-0 me-2"
+            onClick={() => handleFilter(category.id)}
+          >
             {category.name}
           </p>
         ))}

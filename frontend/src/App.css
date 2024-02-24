@@ -221,6 +221,11 @@ strong {
   border-radius: 18px;
   font-size: 13px;
   display: inline-block;
+  cursor: pointer;
+}
+
+.categories:active{
+  background: var(--color-secondary);
 }
 
 /* Small Screens */
