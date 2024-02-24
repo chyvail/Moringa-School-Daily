@@ -61,6 +61,7 @@ export default function SignIn() {
                 className="form-control"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
+                required
               />
               <div id="emailHelp" className="form-text">
                 We'll never share your email with anyone else.
@@ -74,6 +75,7 @@ export default function SignIn() {
                 className="form-control"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
+                required
               />
             </div>
             <AuthButton name="Sign In" />
