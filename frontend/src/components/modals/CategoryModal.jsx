@@ -1,5 +1,8 @@
 import React, { useContext, useState } from "react";
 import { SchoolContext } from "../../contexts/SchoolContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function CategoryModal() {
   const { accessToken, userId } = useContext(SchoolContext);
   const [formData, setFormData] = useState({
@@ -25,8 +28,10 @@ export default function CategoryModal() {
         return response.text();
       })
       .then(() => {
-        alert("Post added successfully");
-        console.log("Post added successfully");
+        toast.success("Category added Successfully", {
+          position: "bottom-center",
+        });
+        console.log("Category added successfully");
       })
       .catch((error) => {
         console.error("Error adding post:", error.message);

@@ -60,6 +60,7 @@ function App() {
         accessToken,
         userId,
         postData,
+        setPostData
       }}
     >
       <BrowserRouter>
