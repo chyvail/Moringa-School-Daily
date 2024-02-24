@@ -193,6 +193,16 @@ strong {
   justify-content: flex-start;
   align-content: center;
   align-items: baseline;
+  height: 20px;
+}
+
+.trash i {
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.trash i:hover {
+  color: #dc3545;
 }
 
 .comments-icons i {

@@ -22,7 +22,7 @@ class Contents(Resource):
         content_list = []
         for content in Content.query.all():
             user = User.query.filter_by(id=content.user_id).first()
-            added_by = {"firstname": user.firstname, "lastname": user.lastname} if user else {}
+            added_by = {"firstname": user.firstname, "lastname": user.lastname, "user_id": user.id } if user else {}
             comments = Comment.query.filter_by(content_id=content.id).all()
             post_comments = [{"comment": comment.comment, "user": User.query.filter_by(id=comment.user_id).first().firstname } for comment in comments]
             content_dict = {
@@ -47,7 +47,7 @@ class ContentByID(Resource):
     def get(self, id):
         content = Content.query.filter_by(id=id).first()
         user = User.query.filter_by(id=content.user_id).first()
-        added_by = {"firstname": user.firstname, "lastname": user.lastname} if user else {}
+        added_by = {"firstname": user.firstname, "lastname": user.lastname, "user-id": user.id} if user else {}
         comments = Comment.query.filter_by(content_id=content.id).all()
         post_comments = [{"comment": comment.comment, "user": User.query.filter_by(id=comment.user_id).first().email } for comment in comments]
         content_dict = {
