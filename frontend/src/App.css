@@ -224,8 +224,27 @@ strong {
   cursor: pointer;
 }
 
-.categories:active{
+.categories:active {
   background: var(--color-secondary);
+}
+
+.stats img {
+  width: 10%;
+}
+
+.users {
+  border-bottom: 4px solid #244a9f;
+}
+
+.techwriters {
+  border-bottom: 4px solid #9b0431;
+}
+
+.admins {
+  border-bottom: 4px solid #d9ac2d;
+}
+.posts {
+  border-bottom: 4px solid #1e9b6a;
 }
 
 /* Small Screens */
