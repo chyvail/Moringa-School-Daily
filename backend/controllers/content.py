@@ -38,7 +38,7 @@ class Contents(Resource):
         content_list = []
         for content in Content.query.all():
             user = User.query.filter_by(id=content.user_id).first()
-            added_by = {"firstname": user.firstname, "lastname": user.lastname} if user else {}
+            added_by = {"firstname": user.firstname, "lastname": user.lastname, "user_id": user.id } if user else {}
             comments = Comment.query.filter_by(content_id=content.id).all()
             post_comments = [{"comment": comment.comment, "user": User.query.filter_by(id=comment.user_id).first().firstname } for comment in comments]
             content_dict = {
@@ -63,7 +63,7 @@ class ContentByID(Resource):
     def get(self, id):
         content = Content.query.filter_by(id=id).first()
         user = User.query.filter_by(id=content.user_id).first()
-        added_by = {"firstname": user.firstname, "lastname": user.lastname} if user else {}
+        added_by = {"firstname": user.firstname, "lastname": user.lastname, "user-id": user.id} if user else {}
         comments = Comment.query.filter_by(content_id=content.id).all()
         post_comments = [{"comment": comment.comment, "user": User.query.filter_by(id=comment.user_id).first().email } for comment in comments]
         content_dict = {
@@ -101,3 +101,30 @@ class ContentByID(Resource):
         else:
             return make_response(jsonify(['Content not found']), 404)
 
+
+
+class ContentCategory(Resource):
+    def get(self, id):
+        content_list = []
+        for content in Content.query.filter_by(category_id=id).all():
+            user = User.query.filter_by(id=content.user_id).first()
+            added_by = {"firstname": user.firstname, "lastname": user.lastname, "user_id": user.id } if user else {}
+            comments = Comment.query.filter_by(content_id=content.id).all()
+            post_comments = [{"comment": comment.comment, "user": User.query.filter_by(id=comment.user_id).first().firstname } for comment in comments]
+            content_dict = {
+                "id": content.id,
+                "title": content.title,
+                "description": content.description,
+                "content_type": content.content_type,
+                "published_date": content.published_date,
+                "image_url": content.image_url,
+                "likes": content.likes,
+                "dislikes": content.dislikes,
+                "flagged": content.flagged,
+                "public_status": content.public_status,
+                "added_by": added_by,
+                "category_id": [category.name for category in Category.query.filter_by(id=content.category_id)],
+                "comments": post_comments
+            }
+            content_list.append(content_dict)
+        return make_response(jsonify(content_list), 200)

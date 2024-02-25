@@ -193,6 +193,16 @@ strong {
   justify-content: flex-start;
   align-content: center;
   align-items: baseline;
+  height: 20px;
+}
+
+.trash i {
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.trash i:hover {
+  color: #dc3545;
 }
 
 .comments-icons i {
@@ -203,6 +213,19 @@ strong {
 .comment-user {
   text-align: right;
   color: var(--gray-variant);
+}
+
+.categories {
+  background: #d9d9d9;
+  padding: 5px;
+  border-radius: 18px;
+  font-size: 13px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.categories:active{
+  background: var(--color-secondary);
 }
 
 /* Small Screens */
@@ -231,10 +254,9 @@ strong {
     position: absolute;
   }
 
-  .offcanvas-end{
+  .offcanvas-end {
     width: 100%;
   }
-  
 }
 
 /* Medium Screens */
