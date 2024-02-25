@@ -27,6 +27,12 @@ export default function QuickActions() {
         >
           Add Category
         </Link>
+        <Link
+          className="ms-3"
+          to='/admin'
+        >
+          Administration
+        </Link>
         <ContentModal />
         <CategoryModal />
         <ProfileModal />
