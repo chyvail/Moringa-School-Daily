@@ -14,12 +14,19 @@ from flask_migrate import Migrate
 from datetime import timedelta
 from models import db
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///moringa-daily.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=24)
 app.config['SECRET_KEY'] = 'tvbubvhriefjkwerty='
+app.config['MAIL_SERVER']="smtp.gmail.com"
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = "maureenchelangat955@gmail.com"
+app.config['MAIL_PASSWORD']= "otvacdbrljoiviir"
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL=']= True
 
 migrate = Migrate(app,db)
 

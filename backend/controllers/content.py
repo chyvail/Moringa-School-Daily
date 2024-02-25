@@ -2,6 +2,16 @@ from models import db, Content, Category, User, Comment
 from flask import jsonify, request, make_response
 from datetime import datetime
 from flask_restful import Resource
+from flask_mail import Mail, Message
+from app import app
+
+def send_notification(email, content_title):
+    msg=Message('New Post Notification', sender='maureenchelangat955@gmail.com', recipients=[email])
+    msg.body=f' A new post titled "{content_title}" has been posted in a category you subscribed to.'
+    mail.send(msg)
+
+
+mail=Mail(app)
 
 class Contents(Resource):
     def post(self):
@@ -16,6 +26,12 @@ class Contents(Resource):
         )
         db.session.add(content)
         db.session.commit()
+
+        category=Category.query.get(data['category_id'])
+        subscribers=category.user_id
+        for user in subscribers:
+            send_notification(user.email, content.title)
+
         return make_response(jsonify(content.to_dict()), 201)
 
     def get(self):
@@ -84,3 +100,4 @@ class ContentByID(Resource):
             return make_response(jsonify(['Deleted successfully']), 200)
         else:
             return make_response(jsonify(['Content not found']), 404)
+
