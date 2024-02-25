@@ -58,3 +58,7 @@ class SubscriptionByID(Resource):
             db.session.commit()
             return make_response(jsonify({"message":"subscription deleted successfully"}), 200)
         return make_response(jsonify({"error":"subscription not found"}), 404)
+    
+
+
+  
