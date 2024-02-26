@@ -5,9 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 
 export default function PostsTable() {
-  const { postData, accessToken } = useContext(SchoolContext);
+  const { postData, accessToken, URL } = useContext(SchoolContext);
   const approvePost = (id) => {
-    fetch(`/contents/${id}`, {
+    fetch(`${URL}/contents/${id}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${accessToken}`,
