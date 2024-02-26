@@ -1,6 +1,41 @@
-import React from "react";
+import React, { useContext } from "react";
+import Avatar from "./Avatar";
+import { SchoolContext } from "../contexts/SchoolContext";
+import { toast ,ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function UsersTable() {
+  const { userCount, accessToken } = useContext(SchoolContext);
+
+  const handleRoleChange = (role, id) => {
+    console.log(`The role is ${role} and id ${id}`);
+
+    fetch(`/users/${id}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        role: role,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then(() => {
+        toast.success(`Role changed to ${role}`, {
+          position: "bottom-center",
+        });
+        console.log(`Role changed to ${role}`);
+      })
+      .catch((error) => {
+        console.error("Error changing post:", error.message);
+      });
+  };
   return (
     <div className="container-lgs mt-3">
       <p>Manage Users</p>
@@ -8,46 +43,69 @@ export default function UsersTable() {
         <thead className="bg-light">
           <tr>
             <th>Name</th>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Position</th>
+            <th>Email</th>
+            <th>Role</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div className="d-flex align-items-center">
-                <img
-                  src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                  alt=""
-                  style={{ width: "45px", height: "45px" }}
-                  className="rounded-circle"
-                />
-                <div className="ms-3">
-                  <p className="fw-bold mb-1">John Doe</p>
-                  <p className="text-muted mb-0">john.doe@gmail.com</p>
-                </div>
-              </div>
-            </td>
-            <td>
-              <p className="fw-normal mb-1">Software engineer</p>
-              <p className="text-muted mb-0">IT department</p>
-            </td>
-            <td>
-              <span className="badge bg-success rounded-pill d-inline">
-                Active
-              </span>
-            </td>
-            <td>Senior</td>
-            <td>
-              <button type="button" className="btn btn-link btn-sm rounded">
-                Edit
-              </button>
-            </td>
-          </tr>
-        </tbody>
+        {userCount &&
+          userCount.map((user) => (
+            <tbody key={user.id}>
+              <tr>
+                <td>
+                  <div className="d-flex align-items-center">
+                    <Avatar height={45} />
+                    <div className="ms-3">
+                      <p className="mb-1">
+                        {user.firstname} {user.lastname}
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td>{user.email}</td>
+                <td>
+                  <p className="fw-normal mb-1">{user.role}</p>
+                </td>
+                <td>
+                  <span
+                    className="badge bg-success rounded-pill d-inline dropdown-toggle custom-badge"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Action
+                  </span>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <button
+                        className="dropdown-item"
+                        onClick={() => handleRoleChange("ADMIN", user.id)}
+                      >
+                        Make Admin
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className="dropdown-item"
+                        onClick={() => handleRoleChange("TECH-WRITER", user.id)}
+                      >
+                        Make Tech-Writer
+                      </button>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <button className="dropdown-item text-danger">
+                        Delete User
+                      </button>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          ))}
       </table>
+      <ToastContainer />
     </div>
   );
 }

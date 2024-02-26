@@ -253,6 +253,10 @@ strong {
   color: var(--gray-variant);
 }
 
+.custom-badge {
+  cursor: pointer;
+}
+
 /* Small Screens */
 @media screen and (max-width: 600px) {
   .auth-image-section {
