@@ -1,20 +1,21 @@
 import { Link, useNavigate } from "react-router-dom";
 import Auth from "./Auth";
 import AuthButton from "./AuthButton";
-import React, { useState } from "react";
-
+import React, { useContext, useState } from "react";
+import { SchoolContext } from "../contexts/SchoolContext";
 
 export default function SignIn() {
   // state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const { URL } = useContext(SchoolContext);
 
   const history = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/login", {
+      const response = await fetch(`${URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -30,13 +31,12 @@ export default function SignIn() {
       const data = await response.json();
       setEmail("");
       setPassword("");
-      console.log(data)
-      const access = data['jwt-access-token'];
+      console.log(data);
+      const access = data["jwt-access-token"];
       localStorage.setItem("accessToken", access);
 
       // Redirect to home
       history("/home");
-
     } catch (error) {
       console.error("Login failed:", error.message);
       setError("Check your username and password and try again.");
