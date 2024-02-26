@@ -3,7 +3,7 @@ import { SchoolContext } from "../../contexts/SchoolContext";
 import Avatar from "../Avatar";
 
 export default function ProfileModal() {
-  const { accessToken, userId } = useContext(SchoolContext);
+  const { accessToken, userId, URL } = useContext(SchoolContext);
   const [formData, setFormData] = useState({
     profile_picture: "",
     bio: "",
@@ -12,7 +12,7 @@ export default function ProfileModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    fetch("/profiles", {
+    fetch(`${URL}/profiles`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,

@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ContentModal() {
-  const { accessToken, userId } = useContext(SchoolContext);
+  const { accessToken, userId, URL } = useContext(SchoolContext);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -16,7 +16,7 @@ export default function ContentModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    fetch("/contents", {
+    fetch(`${URL}/contents`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,

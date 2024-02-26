@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function CategoryModal() {
-  const { accessToken, userId } = useContext(SchoolContext);
+  const { accessToken, userId, URL } = useContext(SchoolContext);
   const [formData, setFormData] = useState({
     name: "",
     user_id: userId,
@@ -13,7 +13,7 @@ export default function CategoryModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    fetch("/categories", {
+    fetch(`${URL}/categories`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,

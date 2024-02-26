@@ -1,17 +1,19 @@
 // SinglePost.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import Nav from "../components/Nav";
 import Avatar from "../components/Avatar";
 import Comments from "../components/Comments";
+import { SchoolContext } from "../contexts/SchoolContext";
 
 export default function SinglePost() {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
+  const { URL } = useContext(SchoolContext);
 
   useEffect(() => {
-    fetch(`/contents/${id}`)
+    fetch(`${URL}/contents/${id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch post");
@@ -60,7 +62,7 @@ export default function SinglePost() {
       </div>
       <div className="container-lgs">
         <p className="text-center mt-5">{post.description}</p>
-        <Comments comments={post.comments}/>
+        <Comments comments={post.comments} />
       </div>
     </>
   );

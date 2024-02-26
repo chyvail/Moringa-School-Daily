@@ -3,10 +3,10 @@ import { SchoolContext } from "../contexts/SchoolContext";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
-  const { accessToken, setPostData } = useContext(SchoolContext);
+  const { accessToken, setPostData, URL } = useContext(SchoolContext);
 
   useEffect(() => {
-    fetch("/categories", {
+    fetch(`${URL}/categories`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
@@ -18,7 +18,7 @@ export default function Categories() {
   }, [accessToken]);
 
   const handleFilter = (id) => {
-    fetch(`/contents/category/${id}`, {
+    fetch(`${URL}/contents/category/${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",

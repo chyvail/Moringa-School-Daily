@@ -5,12 +5,12 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function UsersTable() {
-  const { userCount, accessToken } = useContext(SchoolContext);
+  const { userCount, accessToken, URL } = useContext(SchoolContext);
 
   const handleRoleChange = (role, id) => {
     console.log(`The role is ${role} and id ${id}`);
 
-    fetch(`/users/${id}`, {
+    fetch(`${URL}/users/${id}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${accessToken}`,

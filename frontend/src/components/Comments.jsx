@@ -6,7 +6,7 @@ import { SchoolContext } from "../contexts/SchoolContext";
 
 export default function Comments({ comments }) {
   const { id } = useParams();
-  const { accessToken, userId, user } = useContext(SchoolContext);
+  const { accessToken, userId, user, URL } = useContext(SchoolContext);
   const [formData, setFormData] = useState({
     comment: "",
   });
@@ -14,7 +14,7 @@ export default function Comments({ comments }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    fetch("/comments", {
+    fetch(`${URL}/comments`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
