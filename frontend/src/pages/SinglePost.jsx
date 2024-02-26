@@ -26,7 +26,7 @@ export default function SinglePost() {
       .catch((error) => {
         setError(error.message);
       });
-  }, [id]);
+  }, [id,URL]);
 
   if (error) {
     return <p>Error: {error}</p>;

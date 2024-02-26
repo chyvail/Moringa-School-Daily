@@ -15,7 +15,7 @@ export default function Categories() {
       .then((res) => res.json())
       .then((data) => setCategories(data))
       .catch((error) => console.log("error is", error.message));
-  }, [accessToken]);
+  }, [accessToken,URL]);
 
   const handleFilter = (id) => {
     fetch(`${URL}/contents/category/${id}`, {
