@@ -243,8 +243,18 @@ strong {
 .admins {
   border-bottom: 4px solid #d9ac2d;
 }
+
 .posts {
   border-bottom: 4px solid #1e9b6a;
+}
+
+.digits {
+  font-size: 1.8rem;
+  color: var(--gray-variant);
+}
+
+.custom-badge {
+  cursor: pointer;
 }
 
 /* Small Screens */

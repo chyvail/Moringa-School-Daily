@@ -15,6 +15,7 @@ function App() {
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
   const [postData, setPostData] = useState([]);
+  const [userCount, setUserCount] = useState([]);
 
   // session token
   let accessToken = localStorage.getItem("accessToken");
@@ -51,6 +52,19 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    fetch("/users")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUserCount(data);
+      });
+  }, []);
+
   return (
     <SchoolContext.Provider
       value={{
@@ -61,7 +75,8 @@ function App() {
         accessToken,
         userId,
         postData,
-        setPostData
+        setPostData,
+        userCount,
       }}
     >
       <BrowserRouter>
