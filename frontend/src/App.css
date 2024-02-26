@@ -257,6 +257,16 @@ strong {
   cursor: pointer;
 }
 
+.dashboard-title {
+  font-size: 2.3rem;
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+
+.table-resp-mobile {
+  overflow-y: auto;
+  width: 100%;
+}
 /* Small Screens */
 @media screen and (max-width: 600px) {
   .auth-image-section {
@@ -286,6 +296,10 @@ strong {
   .offcanvas-end {
     width: 100%;
   }
+
+  .stats {
+    margin-top: 15px;
+  }
 }
 
 /* Medium Screens */
@@ -296,5 +310,9 @@ strong {
 
   .hero-top h3 {
     width: 100%;
+  }
+
+  .stats {
+    margin-top: 15px;
   }
 }

@@ -1,23 +1,20 @@
 import React, { useContext } from "react";
-import Avatar from "./Avatar";
 import { SchoolContext } from "../contexts/SchoolContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
-export default function UsersTable() {
-  const { userCount, accessToken } = useContext(SchoolContext);
-
-  const handleRoleChange = (role, id) => {
-    console.log(`The role is ${role} and id ${id}`);
-
-    fetch(`/users/${id}`, {
+export default function PostsTable() {
+  const { postData, accessToken } = useContext(SchoolContext);
+  const approvePost = (id) => {
+    fetch(`/contents/${id}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        role: role,
+        public_status: true,
       }),
     })
       .then((response) => {
@@ -27,45 +24,62 @@ export default function UsersTable() {
         return response.text();
       })
       .then(() => {
-        toast.success(`Role changed to ${role}`, {
+        toast.success(`Post status changed`, {
           position: "bottom-center",
         });
-        console.log(`Role changed to ${role}`);
+        console.log(`Post status changed`);
       })
       .catch((error) => {
-        console.error("Error changing post:", error.message);
+        console.error("Error changing post status:", error.message);
       });
   };
   return (
-    <div className="container-lgs mt-3">
-      <p className="dashboard-title">Manage Users</p>
+    <div className="container-lgs mt-3 ">
+      <p className="dashboard-title">Manage Posts</p>
       <div className="table-responsive text-nowrap">
-        <table className="table align-middle mb-0 bg-white">
+        <table className="table align-middle mb-0 bg-white table-responsive">
           <thead className="bg-light">
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
+              <th>Post Title</th>
+              <th>Link</th>
+              <th>Post Type</th>
+              <th>Added By</th>
+              <th>Public Status</th>
+              <th>Publish Date</th>
               <th>Actions</th>
             </tr>
           </thead>
-          {userCount &&
-            userCount.map((user) => (
-              <tbody key={user.id}>
+          {postData &&
+            postData.map((post) => (
+              <tbody key={post.id}>
                 <tr>
                   <td>
                     <div className="d-flex align-items-center">
-                      <Avatar height={45} />
-                      <div className="ms-3">
-                        <p className="mb-1">
-                          {user.firstname} {user.lastname}
-                        </p>
+                      <div className="ms-2">
+                        <p className="mb-1">{post.title}</p>
                       </div>
                     </div>
                   </td>
-                  <td>{user.email}</td>
                   <td>
-                    <p className="fw-normal mb-1">{user.role}</p>
+                    <Link to={`/posts/${post.id}`}>Link</Link>
+                  </td>
+                  <td>{post.content_type}</td>
+                  <td>
+                    <p className="fw-normal mb-1">
+                      {post.added_by.firstname} {post.added_by.lastname}
+                    </p>
+                  </td>
+                  <td>
+                    <p
+                      className={`fw-normal mb-1 ${
+                        post.public_status ? "text-success" : "text-warning"
+                      }`}
+                    >
+                      {post.public_status ? "Approved" : "Not Approved"}
+                    </p>
+                  </td>
+                  <td>
+                    <p className="fw-normal mb-1">{post.published_date}</p>
                   </td>
                   <td>
                     <span
@@ -79,19 +93,9 @@ export default function UsersTable() {
                       <li>
                         <button
                           className="dropdown-item"
-                          onClick={() => handleRoleChange("ADMIN", user.id)}
+                          onClick={() => approvePost(post.id)}
                         >
-                          Make Admin
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          className="dropdown-item"
-                          onClick={() =>
-                            handleRoleChange("TECH-WRITER", user.id)
-                          }
-                        >
-                          Make Tech-Writer
+                          Approve Post
                         </button>
                       </li>
                       <li>
@@ -99,7 +103,7 @@ export default function UsersTable() {
                       </li>
                       <li>
                         <button className="dropdown-item text-danger">
-                          Delete User
+                          Remove Post
                         </button>
                       </li>
                     </ul>
