@@ -42,7 +42,7 @@ function App() {
     } else {
       setUser("");
     }
-  }, [accessToken, setUser, userId, userRole, userEmail]);
+  }, [accessToken, setUser, userId, userRole, userEmail,URL]);
 
   // get posts
 
@@ -57,7 +57,7 @@ function App() {
       .then((data) => {
         setPostData(data);
       });
-  }, []);
+  }, [URL]);
 
   useEffect(() => {
     fetch(`${URL}/users`)
@@ -70,7 +70,7 @@ function App() {
       .then((data) => {
         setUserCount(data);
       });
-  }, []);
+  }, [URL]);
 
   return (
     <SchoolContext.Provider
