@@ -21,10 +21,10 @@ export default function Stats() {
 
   return (
     <div className="mt-3 container-lgs">
-      <p>Stats</p>
+      <p className="dashboard-title">Stats</p>
       <div className="row gx-2">
         {statsData.map((stat, index) => (
-          <div className="col-sm-3 stats" key={index}>
+          <div className="col-sm-3 col-md-6 col-lg-3 stats" key={index}>
             <div
               className={`p-3 bg-light ${stat.label.toLowerCase()} rounded-3 d-flex align-items-center`}
             >
