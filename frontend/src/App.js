@@ -6,6 +6,8 @@ import SignUp from "./components/SignUp";
 import Footer from "./components/Footer";
 import { SchoolContext } from "./contexts/SchoolContext";
 import { useState, useEffect } from "react";
+import SinglePost from "./pages/SinglePost";
+import Administration from "./pages/Administration";
 
 function App() {
   // states
@@ -13,6 +15,7 @@ function App() {
   const [userEmail, setUserEmail] = useState("");
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
+  const [postData, setPostData] = useState([]);
 
   // session token
   let accessToken = localStorage.getItem("accessToken");
@@ -24,7 +27,7 @@ function App() {
       })
         .then((res) => res.json())
         .then((data) => {
-          setUser(data.firstname);
+          setUser(`${data.firstname} ${data.lastname}`);
           setUserEmail(data.email);
           setUserRole(data.role);
           setUserId(data.id);
@@ -34,9 +37,33 @@ function App() {
     }
   }, [accessToken, setUser, userId, userRole, userEmail]);
 
+  // get posts
+
+  useEffect(() => {
+    fetch("/contents")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPostData(data);
+      });
+  }, []);
+
   return (
     <SchoolContext.Provider
-      value={{ user, setUser, userEmail, userRole, accessToken, userId }}
+      value={{
+        user,
+        setUser,
+        userEmail,
+        userRole,
+        accessToken,
+        userId,
+        postData,
+        setPostData
+      }}
     >
       <BrowserRouter>
         <Routes>
@@ -44,6 +71,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
+          <Route path="/posts/:id" element={<SinglePost />} />
+          <Route path="/admin" element={<Administration />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -53,7 +53,7 @@ export default function SignUp() {
           </p>
         </div>
         <div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} >
             <div className="mb-3">
               <div className="row gx-1">
                 <div className="col-sm-6">
@@ -64,6 +64,7 @@ export default function SignUp() {
                     id="firstname"
                     value={firstname}
                     onChange={(event) => setFirstname(event.target.value)}
+                    required
                   />
                 </div>
                 <div className="col-sm-6">
@@ -74,6 +75,7 @@ export default function SignUp() {
                     id="lastname"
                     value={lastname}
                     onChange={(event) => setLastname(event.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -86,6 +88,7 @@ export default function SignUp() {
                 id="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
+                required
               />
             </div>
             <div className="mb-3">
@@ -96,6 +99,7 @@ export default function SignUp() {
                 id="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
+                required
               />
             </div>
             <div className="mb-3">
@@ -106,6 +110,7 @@ export default function SignUp() {
                 id="confirm_password"
                 value={confirmPassword}
                 onChange={(event) => setConfirmPassword(event.target.value)}
+                required
               />
             </div>
             <AuthButton name="Sign up Here" />

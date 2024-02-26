@@ -169,6 +169,84 @@ nav {
   height: 40px;
   width: 40px;
 }
+
+.single-post h3 {
+  line-height: 1.3em;
+  font-size: 2.6em;
+  font-weight: 600;
+}
+
+strong {
+  font-weight: 600;
+  margin-left: 8px;
+  color: #272626;
+}
+
+.post-image img {
+  height: 350px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.comments-icons {
+  display: flex !important;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: baseline;
+  height: 20px;
+}
+
+.trash i {
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.trash i:hover {
+  color: #dc3545;
+}
+
+.comments-icons i {
+  color: var(--color-secondary);
+  cursor: pointer;
+}
+
+.comment-user {
+  text-align: right;
+  color: var(--gray-variant);
+}
+
+.categories {
+  background: #d9d9d9;
+  padding: 5px;
+  border-radius: 18px;
+  font-size: 13px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.categories:active {
+  background: var(--color-secondary);
+}
+
+.stats img {
+  width: 10%;
+}
+
+.users {
+  border-bottom: 4px solid #244a9f;
+}
+
+.techwriters {
+  border-bottom: 4px solid #9b0431;
+}
+
+.admins {
+  border-bottom: 4px solid #d9ac2d;
+}
+.posts {
+  border-bottom: 4px solid #1e9b6a;
+}
+
 /* Small Screens */
 @media screen and (max-width: 600px) {
   .auth-image-section {
@@ -193,6 +271,10 @@ nav {
 
   .navbar-nav .dropdown-menu {
     position: absolute;
+  }
+
+  .offcanvas-end {
+    width: 100%;
   }
 }
 

@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import { SchoolContext } from "../contexts/SchoolContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ContentModal() {
   const { accessToken, userId } = useContext(SchoolContext);
@@ -8,7 +10,6 @@ export default function ContentModal() {
     description: "",
     content_type: "",
     image_url: "",
-    user_id: userId,
     category_id: "",
   });
 
@@ -21,7 +22,7 @@ export default function ContentModal() {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ ...formData, user_id: userId }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -30,7 +31,10 @@ export default function ContentModal() {
         return response.text();
       })
       .then(() => {
-        alert("Post added successfully");
+        //alert("Post added successfully");
+        toast.success("Post added Successfully", {
+          position: "bottom-center",
+        });
         console.log("Post added successfully");
       })
       .catch((error) => {
@@ -75,6 +79,7 @@ export default function ContentModal() {
                   className="form-control"
                   id="title"
                   onChange={handleOnChange}
+                  required
                 />
               </div>
               <div className="mb-3">
@@ -86,6 +91,7 @@ export default function ContentModal() {
                   className="form-control"
                   id="content_type"
                   onChange={handleOnChange}
+                  required
                 />
               </div>
               <div className="mb-3">
@@ -97,6 +103,7 @@ export default function ContentModal() {
                   className="form-control"
                   id="image_url"
                   onChange={handleOnChange}
+                  required
                 />
               </div>
               <div className="mb-3">
@@ -108,6 +115,7 @@ export default function ContentModal() {
                   className="form-control"
                   id="category_id"
                   onChange={handleOnChange}
+                  required
                 />
               </div>
               <div className="mb-3">
@@ -118,6 +126,7 @@ export default function ContentModal() {
                   className="form-control"
                   id="description"
                   onChange={handleOnChange}
+                  required
                 ></textarea>
               </div>
               <div className="modal-footer">
@@ -128,7 +137,7 @@ export default function ContentModal() {
                 >
                   Close
                 </button>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary auth-btn">
                   Create Post
                 </button>
               </div>
@@ -136,6 +145,7 @@ export default function ContentModal() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

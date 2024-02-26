@@ -18,7 +18,7 @@ class Comments(Resource):
                "id":comment.id, 
                "comment":comment.comment, 
                "user_id":comment.user_id,
-                "content_id":comment.content_id
+               "content_id":comment.content_id
             }               
                 
             comments_list.append(comment_dict)
