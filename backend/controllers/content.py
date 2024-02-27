@@ -2,62 +2,52 @@ from models import db, Content, Category, User, Comment
 from flask import jsonify, request, make_response
 from datetime import datetime
 from flask_restful import Resource
-from flask_mail import Mail, Message
-from app import app
 
-def send_notification(email, content_title):
-    msg=Message('New Post Notification', sender='maureenchelangat955@gmail.com', recipients=[email])
-    msg.body=f' A new post titled "{content_title}" has been posted in a category you subscribed to.'
-    mail.send(msg)
+# class Contents(Resource):
+#     def post(self):
+#         data = request.get_json()
+#         content = Content(
+#             title=data['title'],
+#             description=data['description'],
+#             content_type=data['content_type'],
+#             image_url=data['image_url'],
+#             user_id=data["user_id"],
+#             category_id=data['category_id']
+#         )
+#         db.session.add(content)
+#         db.session.commit()
 
+#         category=Category.query.get(data['category_id'])
+#         subscribers=category.user_id
+#         for user in subscribers:
+#             send_notification(user.email, content.title)
 
-mail=Mail(app)
+#         return make_response(jsonify(content.to_dict()), 201)
 
-class Contents(Resource):
-    def post(self):
-        data = request.get_json()
-        content = Content(
-            title=data['title'],
-            description=data['description'],
-            content_type=data['content_type'],
-            image_url=data['image_url'],
-            user_id=data["user_id"],
-            category_id=data['category_id']
-        )
-        db.session.add(content)
-        db.session.commit()
-
-        category=Category.query.get(data['category_id'])
-        subscribers=category.user_id
-        for user in subscribers:
-            send_notification(user.email, content.title)
-
-        return make_response(jsonify(content.to_dict()), 201)
-
-    def get(self):
-        content_list = []
-        for content in Content.query.all():
-            user = User.query.filter_by(id=content.user_id).first()
-            added_by = {"firstname": user.firstname, "lastname": user.lastname, "user_id": user.id } if user else {}
-            comments = Comment.query.filter_by(content_id=content.id).all()
-            post_comments = [{"comment": comment.comment, "user": User.query.filter_by(id=comment.user_id).first().firstname } for comment in comments]
-            content_dict = {
-                "id": content.id,
-                "title": content.title,
-                "description": content.description,
-                "content_type": content.content_type,
-                "published_date": content.published_date,
-                "image_url": content.image_url,
-                "likes": content.likes,
-                "dislikes": content.dislikes,
-                "flagged": content.flagged,
-                "public_status": content.public_status,
-                "added_by": added_by,
-                "category_id": [category.name for category in Category.query.filter_by(id=content.category_id)],
-                "comments": post_comments
-            }
-            content_list.append(content_dict)
-        return make_response(jsonify(content_list), 200)
+#     def get(self):
+#         content_list = []
+#         for content in Content.query.all():
+#             user = User.query.filter_by(id=content.user_id).first()
+#             added_by = {"firstname": user.firstname, "lastname": user.lastname, "user_id": user.id } if user else {}
+#             comments = Comment.query.filter_by(content_id=content.id).all()
+#             post_comments = [{"comment": comment.comment, "user": User.query.filter_by(id=comment.user_id).first().firstname } for comment in comments]
+#             content_dict = {
+#                 "id": content.id,
+#                 "title": content.title,
+#                 "description": content.description,
+#                 "content_type": content.content_type,
+#                 "published_date": content.published_date,
+#                 "image_url": content.image_url,
+#                 "likes": content.likes,
+#                 "dislikes": content.dislikes,
+#                 "flagged": content.flagged,
+#                 "public_status": content.public_status,
+#                 "added_by": added_by,
+#                 "category_id": [category.name for category in Category.query.filter_by(id=content.category_id)],
+#                 "comments": post_comments
+#             }
+#             content_list.append(content_dict)
+#         return make_response(jsonify(content_list), 200)
 
 class ContentByID(Resource):
     def get(self, id):
