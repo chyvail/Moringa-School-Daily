@@ -45,16 +45,20 @@ def send_notification_email(user_email, content_title):
     msg.body = f'There is a new content available: {content_title}. Check it out!'
     mail.send(msg)
 
+def notify_admins(new_content):
+    # Notify admins about the new content for approval
+    admins = User.query.filter_by(role='ADMIN').all()
+    for admin in admins:
+        if admin:
+            send_notification_email(admin.email, f'New Content: {new_content.title} for approval')
+
 def notify_users(new_content):
     # Notify subscribers about the new content
     subscribers = Subscription.query.filter_by(category_id=new_content.category_id).all()
     for subscriber in subscribers:
         user = User.query.get(subscriber.user_id)
-        if user is None:
-            continue
-        send_notification_email(user.email, new_content.title)
-    db.session.add(new_content)
-    db.session.commit()
+        if user:
+            send_notification_email(user.email, new_content.title)
 
 class Contents(Resource):
 
@@ -69,9 +73,9 @@ class Contents(Resource):
             category_id=data['category_id']
         )
         db.session.add(new_content)
-        db.session.commit()
+        db.session.commit() 
 
-        # Notify users about the new content
+        notify_admins(new_content)
         notify_users(new_content)
 
         return make_response(jsonify({"message": "content created successfully"}), 200)

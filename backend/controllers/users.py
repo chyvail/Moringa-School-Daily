@@ -34,7 +34,7 @@ class Users(Resource):
             abort(409, detail="User Already Exists")
         if data['password'] == data['confirm-password']:
             hashed_password = bcrypt.generate_password_hash(data['password'])
-            new_user = User(firstname=data['firstname'], lastname=data['lastname'], email=data['email'], password=hashed_password)
+            new_user = User(firstname=data['firstname'], lastname=data['lastname'], email=data['email'],role=data['role'], password=hashed_password)
             db.session.add(new_user)
             db.session.commit()
             return make_response(jsonify(new_user.to_dict()),201)
