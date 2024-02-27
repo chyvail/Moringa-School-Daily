@@ -3,6 +3,7 @@ import Auth from "./Auth";
 import AuthButton from "./AuthButton";
 import { useContext, useState } from "react";
 import { SchoolContext } from "../contexts/SchoolContext";
+import Spinner from "./Spinner";
 
 export default function SignUp() {
   const [firstname, setFirstname] = useState("");
@@ -11,11 +12,13 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { URL } = useContext(SchoolContext);
+  const [loading, setLoading] = useState(false);
 
   const history = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(`${URL}/users`, {
         method: "POST",
@@ -37,7 +40,6 @@ export default function SignUp() {
       setPassword("");
       setConfirmPassword("");
       console.log(data);
-
       history("/login");
     } catch (error) {
       console.error("Sign-up failed:", error.message);
@@ -119,6 +121,7 @@ export default function SignUp() {
           </form>
         </div>
       </div>
+      {loading && <Spinner />}
     </Auth>
   );
 }

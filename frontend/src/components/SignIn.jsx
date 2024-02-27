@@ -3,17 +3,20 @@ import Auth from "./Auth";
 import AuthButton from "./AuthButton";
 import React, { useContext, useState } from "react";
 import { SchoolContext } from "../contexts/SchoolContext";
+import Spinner from "./Spinner";
 
 export default function SignIn() {
   // state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { URL } = useContext(SchoolContext);
 
   const history = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(`${URL}/login`, {
         method: "POST",
@@ -84,6 +87,7 @@ export default function SignIn() {
           </form>
         </div>
       </div>
+      {loading && <Spinner />}
     </Auth>
   );
 }
