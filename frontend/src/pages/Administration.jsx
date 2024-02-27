@@ -1,22 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import Nav from "../components/Nav";
 import QuickActions from "../components/QuickActions";
 import Hero from "../components/Hero";
 import Stats from "../components/Stats";
 import UsersTable from "../components/UsersTable";
 import PostsTable from "../components/PostsTable";
+import { SchoolContext } from "../contexts/SchoolContext";
 
 export default function Administration() {
+  const { userRole } = useContext(SchoolContext);
   return (
     <>
       <Nav />
       <QuickActions />
       <Hero />
-      <Stats />
-      <hr className="mt-4" />
-      <UsersTable />
-      <hr className="mt-4" />
-      <PostsTable />
+      {userRole === "ADMIN" ? (
+        <>
+          <Stats />
+          <hr className="mt-4" />
+          <UsersTable />
+          <hr className="mt-4" />
+        </>
+      ) : null}
+      {userRole !== "USER" ? <PostsTable /> : null}
     </>
   );
 }
