@@ -1,0 +1,8 @@
+# Ignore Python byte-compiled files
+__pycache__/
+
+# Ignore instance directory
+instance/
+
+# Ignore migrations directory
+migrations/
