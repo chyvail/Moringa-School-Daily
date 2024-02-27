@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <>
       <div className="container-lgs mt-4 hero-top">
-        {location.pathname === "/" ? (
+        {location.pathname === "/" || location.pathname === "/home" ? (
           <>
             <p>
               Home . <span> Blogs and New Content</span>

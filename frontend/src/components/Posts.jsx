@@ -27,12 +27,14 @@ export default function Posts() {
       });
   };
 
+  const filteredPosts = postData.filter((post) => post.public_status === true);
+
   return (
     <div className="container-lgs hero-top">
       <p>All Blog Posts</p>
       <div className="row g-3">
-        {postData.length > 0 ? (
-          postData.map((post) => (
+        {filteredPosts.length > 0 ? (
+          filteredPosts.map((post) => (
             <div
               key={post.id}
               className="col-sm-12 col-md-6 col-lg-4 blog-image mb-2"
