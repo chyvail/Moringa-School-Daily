@@ -2,11 +2,21 @@ from flask import Flask
 from faker import Faker
 import random
 from models import User, Content, Category, Comment, Profile, Recommendation, Subscription, Wishlist, db
+from flask_sqlalchemy import SQLAlchemy  
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///moringa-daily.db'
 
 fake = Faker()
+
+# Define the desired categories
+categories = [
+    "Cyber Security",
+    "DevOps",
+    "Cloud Technology",
+    "Data Science",
+    "Front-End Development"
+]
 
 def seed_data():
     with app.app_context():
@@ -20,11 +30,14 @@ def seed_data():
             user = User(firstname=firstname, lastname=lastname, email=email, password=password, role=role)
             db.session.add(user)
 
-        # Create categories
-        for _ in range(5):
-            name = fake.word()
-            category = Category(name=name)
-            db.session.add(category)
+        # Create specific categories
+        for name in categories:
+            existing_category = Category.query.filter_by(name=name).first()
+            if existing_category is None:
+                category = Category(name=name)
+                db.session.add(category)
+            else:
+                print(f"Category '{name}' already exists. Skipping insertion.")
 
         # Create contents
         for _ in range(20):
@@ -63,7 +76,7 @@ def seed_data():
         # Create recommendations
         for content in Content.query.all():
             user_id = random.randint(1, 10)
-            recommendation = Recommendation(content=content, user_id=user_id)
+            recommendation = Recommendation(content_id=content.id, user_id=user_id)
             db.session.add(recommendation)
 
         # Create subscriptions
@@ -76,11 +89,12 @@ def seed_data():
         # Create wishlists
         for user in User.query.all():
             content_id = random.randint(1, 20)
-            wishlist = Wishlist(content_id=content_id, user=user)
+            wishlist = Wishlist(content_id=content_id, user_id=user.id)
             db.session.add(wishlist)
 
         # Commit all changes
         db.session.commit()
 
 if __name__ == '__main__':
+    db.init_app(app)
     seed_data()
