@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import Auth from "./Auth";
 import AuthButton from "./AuthButton";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { SchoolContext } from "../contexts/SchoolContext";
+import Spinner from "./Spinner";
 
 export default function SignUp() {
   const [firstname, setFirstname] = useState("");
@@ -9,13 +11,16 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { URL } = useContext(SchoolContext);
+  const [loading, setLoading] = useState(false);
 
   const history = useNavigate();
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const response = await fetch("/users", {
+      const response = await fetch(`${URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -34,8 +39,7 @@ export default function SignUp() {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
-      console.log(data)
-
+      console.log(data);
       history("/login");
     } catch (error) {
       console.error("Sign-up failed:", error.message);
@@ -53,7 +57,7 @@ export default function SignUp() {
           </p>
         </div>
         <div>
-          <form onSubmit={handleSubmit} >
+          <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <div className="row gx-1">
                 <div className="col-sm-6">
@@ -117,6 +121,7 @@ export default function SignUp() {
           </form>
         </div>
       </div>
+      {loading && <Spinner />}
     </Auth>
   );
 }

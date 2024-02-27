@@ -6,11 +6,11 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Posts() {
-  const { postData, userId, accessToken } = useContext(SchoolContext);
+  const { postData, userId, accessToken, URL } = useContext(SchoolContext);
 
   const handleDelete = (id) => {
     console.log("Clicked post with id", id);
-    fetch(`/contents/${id}`, {
+    fetch(`${URL}/contents/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${accessToken}` },
     })
@@ -27,12 +27,14 @@ export default function Posts() {
       });
   };
 
+  const filteredPosts = postData.filter((post) => post.public_status === true);
+
   return (
     <div className="container-lgs hero-top">
       <p>All Blog Posts</p>
       <div className="row g-3">
-        {postData.length > 0 ? (
-          postData.map((post) => (
+        {filteredPosts.length > 0 ? (
+          filteredPosts.map((post) => (
             <div
               key={post.id}
               className="col-sm-12 col-md-6 col-lg-4 blog-image mb-2"

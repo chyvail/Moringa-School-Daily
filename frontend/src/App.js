@@ -15,13 +15,21 @@ function App() {
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
   const [postData, setPostData] = useState([]);
+  const [userCount, setUserCount] = useState([]);
+  let URL;
 
   // session token
   let accessToken = localStorage.getItem("accessToken");
 
+  if (process.env.NODE_ENV === "production") {
+    URL = "https://moringa-school-daily.onrender.com";
+  } else {
+    URL = "";
+  }
+
   useEffect(() => {
     if (accessToken) {
-      fetch("/user-token", {
+      fetch(`${URL}/user-token`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
         .then((res) => res.json())
@@ -34,12 +42,12 @@ function App() {
     } else {
       setUser("");
     }
-  }, [accessToken, setUser, userId, userRole, userEmail]);
+  }, [accessToken, setUser, userId, userRole, userEmail,URL]);
 
   // get posts
 
   useEffect(() => {
-    fetch("/contents")
+    fetch(`${URL}/contents`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -49,7 +57,20 @@ function App() {
       .then((data) => {
         setPostData(data);
       });
-  }, []);
+  }, [URL]);
+
+  useEffect(() => {
+    fetch(`${URL}/users`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUserCount(data);
+      });
+  }, [URL]);
 
   return (
     <SchoolContext.Provider
@@ -61,7 +82,9 @@ function App() {
         accessToken,
         userId,
         postData,
-        setPostData
+        setPostData,
+        userCount,
+        URL
       }}
     >
       <BrowserRouter>

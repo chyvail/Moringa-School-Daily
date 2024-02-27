@@ -243,10 +243,30 @@ strong {
 .admins {
   border-bottom: 4px solid #d9ac2d;
 }
+
 .posts {
   border-bottom: 4px solid #1e9b6a;
 }
 
+.digits {
+  font-size: 1.8rem;
+  color: var(--gray-variant);
+}
+
+.custom-badge {
+  cursor: pointer;
+}
+
+.dashboard-title {
+  font-size: 2.3rem;
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+
+.table-resp-mobile {
+  overflow-y: auto;
+  width: 100%;
+}
 /* Small Screens */
 @media screen and (max-width: 600px) {
   .auth-image-section {
@@ -276,6 +296,10 @@ strong {
   .offcanvas-end {
     width: 100%;
   }
+
+  .stats {
+    margin-top: 15px;
+  }
 }
 
 /* Medium Screens */
@@ -286,5 +310,9 @@ strong {
 
   .hero-top h3 {
     width: 100%;
+  }
+
+  .stats {
+    margin-top: 15px;
   }
 }

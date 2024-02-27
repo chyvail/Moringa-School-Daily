@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <>
       <div className="container-lgs mt-4 hero-top">
-        {location.pathname === "/" ? (
+        {location.pathname === "/" || location.pathname === "/home" ? (
           <>
             <p>
               Home . <span> Blogs and New Content</span>
@@ -24,7 +24,7 @@ export default function Hero() {
             <p>
               Dashboard . <span> Admin's Den</span>
             </p>
-            <h3>Hey there, Admin Extraordinaire!</h3>
+            <h3>Hey there, Admin</h3>
             <p className="hero-description">
               Welcome to the command center of Moringa Daily, where you wield
               the power to curate the digital realm.
