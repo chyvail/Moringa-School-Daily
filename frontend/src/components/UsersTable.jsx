@@ -36,6 +36,25 @@ export default function UsersTable() {
         console.error("Error changing post:", error.message);
       });
   };
+
+  const handleDeleteUser = (id) => {
+    console.log(`This is user ${id}`);
+    fetch(`${URL}/users/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
+      .then(() => {
+        toast.success("User deleted Successfully", {
+          position: "bottom-center",
+        });
+      })
+      .catch((error) => {
+        console.error("Delete user failed:", error.message);
+        toast.error("User deletion Failed", {
+          position: "bottom-center",
+        });
+      });
+  };
   return (
     <div className="container-lgs mt-3">
       <p className="dashboard-title">Manage Users</p>
@@ -98,7 +117,10 @@ export default function UsersTable() {
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
-                        <button className="dropdown-item text-danger">
+                        <button
+                          className="dropdown-item text-danger"
+                          onClick={() => handleDeleteUser(user.id)}
+                        >
                           Delete User
                         </button>
                       </li>

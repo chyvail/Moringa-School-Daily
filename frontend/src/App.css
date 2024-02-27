@@ -300,6 +300,11 @@ strong {
   .stats {
     margin-top: 15px;
   }
+
+  .scroll-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent wrapping */
+  }
 }
 
 /* Medium Screens */
@@ -314,5 +319,9 @@ strong {
 
   .stats {
     margin-top: 15px;
+  }
+  
+  .navbar.navbar-expand-lg.navbar-dark.d-flex.justify-content-between.p-4 {
+    padding: 5px !important;
   }
 }

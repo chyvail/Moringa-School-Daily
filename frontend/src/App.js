@@ -42,7 +42,7 @@ function App() {
     } else {
       setUser("");
     }
-  }, [accessToken, setUser, userId, userRole, userEmail,URL]);
+  }, [accessToken, setUser, userId, userRole, userEmail, URL]);
 
   // get posts
 
@@ -84,7 +84,7 @@ function App() {
         postData,
         setPostData,
         userCount,
-        URL
+        URL,
       }}
     >
       <BrowserRouter>
