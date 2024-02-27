@@ -42,16 +42,19 @@ class SubscriptionByID(Resource):
     
     def patch(self, id):
         subscription = Subscription.query.filter_by(id=id).first()
-        data = request.json
-        for field in ["id","user_id","category_id"]:
-            if field in data:
-                setattr(subscription,field,data[field])
-        db.session.commit()
-        return make_response((jsonify({"message":"subscription updated successfully"}), 201
-    ))
+        if subscription:
+            data = request.json
+            for field in ["id","user_id","category_id"]:
+                if field in data:
+                    setattr(subscription,field,data[field])
+            db.session.commit()
+            return make_response((jsonify({"message":"subscription updated successfully"}), 201))
+        return make_response(jsonify({"error":"subscription not found"}), 404)
+    
     def delete(self,id):
         subscription = Subscription.query.filter_by(id=id).first()
-        db.session.delete(subscription)
-        db.session.commit()
-        return make_response(jsonify({"message":"subscription deleted successfully"}), 200
-)
+        if subscription:
+            db.session.delete(subscription)
+            db.session.commit()
+            return make_response(jsonify({"message":"subscription deleted successfully"}), 200)
+        return make_response(jsonify({"error":"subscription not found"}), 404)
