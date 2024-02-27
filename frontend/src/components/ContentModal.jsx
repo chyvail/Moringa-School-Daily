@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 export default function ContentModal() {
   const { accessToken, userId, URL } = useContext(SchoolContext);
   const [categoryData, setCategoryData] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
   useEffect(() => {
     fetch(`${URL}/categories`, {
@@ -130,7 +129,6 @@ export default function ContentModal() {
                 <select
                   className="form-select"
                   aria-label="Default select example"
-                  value={selectedCategoryId}
                   id="category_id"
                   onChange={handleOnChange}
                 >
