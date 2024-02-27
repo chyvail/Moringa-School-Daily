@@ -6,7 +6,9 @@ import SignUp from "./components/SignUp";
 import { SchoolContext } from "./contexts/SchoolContext";
 import { useState, useEffect } from "react";
 import SinglePost from "./pages/SinglePost";
+import Footer from './components/Footer';
 import Administration from "./pages/Administration";
+import Recommendations from "./components/Recommendations";
 
 function App() {
   // states
@@ -15,6 +17,7 @@ function App() {
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
   const [postData, setPostData] = useState([]);
+  
 
   // session token
   let accessToken = localStorage.getItem("accessToken");
@@ -72,7 +75,10 @@ function App() {
           <Route path="/register" element={<SignUp />} />
           <Route path="/posts/:id" element={<SinglePost />} />
           <Route path="/admin" element={<Administration />} />
+          <Route path="/recommendations" element={<Recommendations />} />
+
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </SchoolContext.Provider>
   );

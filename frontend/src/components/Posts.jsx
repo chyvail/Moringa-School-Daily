@@ -1,9 +1,11 @@
+// Posts.jsx
 import React, { useContext } from "react";
 import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
 import { SchoolContext } from "../contexts/SchoolContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CookieConsent from './CookieConsent';
 
 export default function Posts() {
   const { postData, userId, accessToken } = useContext(SchoolContext);
@@ -29,6 +31,10 @@ export default function Posts() {
 
   return (
     <div className="container-lgs hero-top">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <p>All Blog Posts</p>
+        <Link to="/recommendations" className="btn btn-primary">My Recommendations</Link>
+      </div>
       <p>All Blog Posts</p>
       <div className="row g-3">
         {postData.length > 0 ? (
@@ -72,6 +78,7 @@ export default function Posts() {
         )}
       </div>
       <ToastContainer />
+      <CookieConsent />
     </div>
   );
 }
