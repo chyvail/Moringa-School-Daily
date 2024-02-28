@@ -3,6 +3,7 @@ from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime
 from sqlalchemy.orm import validates
 import re
+from sqlalchemy import event
 
 
 db=SQLAlchemy()
@@ -101,3 +102,13 @@ class Recommendation(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     content_id = db.Column(db.Integer, db.ForeignKey('contents.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+@event.listens_for(User, 'before_delete')
+def delete_related_instances(mapper, connection, target):
+    # Delete related instances when a user is deleted
+    db.session.query(Content).filter(Content.user_id == target.id).delete()
+    db.session.query(Profile).filter(Profile.user_id == target.id).delete()
+    db.session.query(Comment).filter(Comment.user_id == target.id).delete()
+    db.session.query(Wishlist).filter(Wishlist.user_id == target.id).delete()
+    db.session.query(Subscription).filter(Subscription.user_id == target.id).delete()
+    db.session.query(Recommendation).filter(Recommendation.user_id == target.id).delete()

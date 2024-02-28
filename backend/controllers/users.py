@@ -34,12 +34,15 @@ class Users(Resource):
             abort(409, detail="User Already Exists")
         if data['password'] == data['confirm-password']:
             hashed_password = bcrypt.generate_password_hash(data['password'])
-            new_user = User(firstname=data['firstname'], lastname=data['lastname'], email=data['email'], password=hashed_password)
+            # Check if role is provided, otherwise default to "user"
+            role = data.get('role', 'user')
+            new_user = User(firstname=data['firstname'], lastname=data['lastname'], email=data['email'], password=hashed_password, role=role)
             db.session.add(new_user)
             db.session.commit()
-            return make_response(jsonify(new_user.to_dict()),201)
+            return make_response(jsonify(new_user.to_dict()), 201)
         else:
             abort(403, detail="Password and Confirm Password do not match")
+
     
 class UserLogin(Resource):
     def post(self):

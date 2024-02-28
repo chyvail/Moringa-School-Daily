@@ -2,6 +2,8 @@ from models import db, Content, Category, User, Comment
 from flask import jsonify, request, make_response
 from datetime import datetime
 from flask_restful import Resource
+from controllers.updates import notify_admins, notify_users
+
 
 class Contents(Resource):
     def post(self):
@@ -16,6 +18,8 @@ class Contents(Resource):
         )
         db.session.add(content)
         db.session.commit()
+        notify_admins(content)
+        notify_users(content)
         return make_response(jsonify(content.to_dict()), 201)
 
     def get(self):
