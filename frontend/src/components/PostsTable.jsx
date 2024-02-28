@@ -33,25 +33,6 @@ export default function PostsTable() {
         console.error("Error changing post status:", error.message);
       });
   };
-
-  const handleDelete = (id) => {
-    fetch(`${URL}/contents/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${accessToken}` },
-    })
-      .then(() => {
-        toast.success("Post deleted Successfully", {
-          position: "bottom-center",
-        });
-      })
-      .catch((error) => {
-        console.error("Delete post failed:", error.message);
-        toast.error("Post deletion Failed", {
-          position: "bottom-center",
-        });
-      });
-  };
-  
   return (
     <div className="container-lgs mt-3 ">
       <p className="dashboard-title">Manage Posts</p>
@@ -121,10 +102,7 @@ export default function PostsTable() {
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
-                        <button
-                          className="dropdown-item text-danger"
-                          onClick={() => handleDelete(post.id)}
-                        >
+                        <button className="dropdown-item text-danger">
                           Remove Post
                         </button>
                       </li>

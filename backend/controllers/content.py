@@ -79,9 +79,6 @@ class ContentByID(Resource):
     def delete(self, id):
         content = Content.query.get(id)
         if content:
-            comments = Comment.query.filter(Comment.content_id == id).all()
-            for comment in comments:
-                db.session.delete(comment)
             db.session.delete(content)
             db.session.commit()
             return make_response(jsonify(['Deleted successfully']), 200)

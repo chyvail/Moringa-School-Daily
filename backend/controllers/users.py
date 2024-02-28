@@ -1,7 +1,7 @@
 from flask import Flask, request, make_response, jsonify
 from flask_restful import Api, Resource, abort
 from flask_bcrypt import Bcrypt
-from models import User,db,Profile, Content, Comment
+from models import User,db,Profile
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 bcrypt = Bcrypt()
@@ -89,16 +89,6 @@ class UserById(Resource):
         user = User.query.filter_by(id=id).first()
         if not user:
             abort(404, detail = f'User with {id=} does not exist')
-        contents = Content.query.filter(Content.user_id == id).all()
-        comments = Comment.query.filter(Comment.user_id == id).all()
-        profiles = Profile.query.filter(Profile.user_id==id).all()
-        for content in contents:
-            db.session.delete(content)
-        for comment in comments:
-            db.session.delete(comment)
-        for profile in profiles:
-            db.session.delete(profile)
-        
         db.session.delete(user)
         db.session.commit()
         return {"detail": f"user with {id=} has been deleted successfully"}

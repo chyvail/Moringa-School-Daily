@@ -5,7 +5,6 @@ import Nav from "../components/Nav";
 import Avatar from "../components/Avatar";
 import Comments from "../components/Comments";
 import { SchoolContext } from "../contexts/SchoolContext";
-import Footer from "../components/Footer";
 
 export default function SinglePost() {
   const { id } = useParams();
@@ -65,7 +64,6 @@ export default function SinglePost() {
         <p className="text-center mt-5">{post.description}</p>
         <Comments comments={post.comments} />
       </div>
-      <Footer />
     </>
   );
 }

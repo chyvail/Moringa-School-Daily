@@ -14,36 +14,34 @@ export default function QuickActions() {
 
   const { userRole } = useContext(SchoolContext);
   return (
-    <div className="scroll-container">
-      <div className="quick-actions pt-2 pb-2">
-        <div className="container-lgs quick-links">
-          <Link onClick={() => handleContentSubmit("contentModal")}>
-            Add New Post
-          </Link>
-          <Link
-            className="ms-3"
-            onClick={() => handleContentSubmit("profileModal")}
-          >
-            Update Profile
-          </Link>
-          {userRole === "ADMIN" || userRole === "TECH-WRITER" ? (
-            <>
-              <Link
-                className="ms-3"
-                onClick={() => handleContentSubmit("categoryModal")}
-              >
-                Add Category
-              </Link>
-              <Link className="ms-3" to="/admin">
-                Administration
-              </Link>
-            </>
-          ) : null}
+    <div className="quick-actions pt-2 pb-2">
+      <div className="container-lgs quick-links">
+        <Link onClick={() => handleContentSubmit("contentModal")}>
+          Add New Post
+        </Link>
+        <Link
+          className="ms-3"
+          onClick={() => handleContentSubmit("profileModal")}
+        >
+          Update Profile
+        </Link>
+        {userRole === "ADMIN" || userRole === "TECH-WRITER" ? (
+          <>
+            <Link
+              className="ms-3"
+              onClick={() => handleContentSubmit("categoryModal")}
+            >
+              Add Category
+            </Link>
+            <Link className="ms-3" to="/admin">
+              Administration
+            </Link>
+          </>
+        ) : null}
 
-          <ContentModal />
-          <CategoryModal />
-          <ProfileModal />
-        </div>
+        <ContentModal />
+        <CategoryModal />
+        <ProfileModal />
       </div>
     </div>
   );

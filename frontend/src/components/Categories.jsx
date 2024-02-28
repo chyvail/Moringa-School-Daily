@@ -15,7 +15,7 @@ export default function Categories() {
       .then((res) => res.json())
       .then((data) => setCategories(data))
       .catch((error) => console.log("error is", error.message));
-  }, [accessToken, URL]);
+  }, [accessToken,URL]);
 
   const handleFilter = (id) => {
     fetch(`${URL}/contents/category/${id}`, {
@@ -30,19 +30,17 @@ export default function Categories() {
   };
 
   return (
-    <div className="scroll-container">
-      <div className="mt-3 container-lgs mb-3">
-        {categories &&
-          categories.map((category) => (
-            <p
-              key={category.id}
-              className="categories mb-0 me-2"
-              onClick={() => handleFilter(category.id)}
-            >
-              {category.name}
-            </p>
-          ))}
-      </div>
+    <div className="mt-3 container-lgs mb-3">
+      {categories &&
+        categories.map((category) => (
+          <p
+            key={category.id}
+            className="categories mb-0 me-2"
+            onClick={() => handleFilter(category.id)}
+          >
+            {category.name}
+          </p>
+        ))}
     </div>
   );
 }

@@ -6,7 +6,6 @@ import Stats from "../components/Stats";
 import UsersTable from "../components/UsersTable";
 import PostsTable from "../components/PostsTable";
 import { SchoolContext } from "../contexts/SchoolContext";
-import Footer from "../components/Footer";
 
 export default function Administration() {
   const { userRole } = useContext(SchoolContext);
@@ -24,7 +23,6 @@ export default function Administration() {
         </>
       ) : null}
       {userRole !== "USER" ? <PostsTable /> : null}
-      <Footer />
     </>
   );
 }
