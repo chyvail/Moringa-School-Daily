@@ -1,10 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SchoolContext } from "../contexts/SchoolContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ContentModal() {
   const { accessToken, userId, URL } = useContext(SchoolContext);
+  const [categoryData, setCategoryData] = useState([]);
+
+  useEffect(() => {
+    fetch(`${URL}/categories`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setCategoryData(data))
+      .catch((error) => console.log("error is", error.message));
+  }, [URL, accessToken, setCategoryData]);
+
+  console.log(categoryData);
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -110,13 +126,25 @@ export default function ContentModal() {
                 <label htmlFor="category_id" className="col-form-label">
                   Category
                 </label>
-                <input
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  id="category_id"
+                  onChange={handleOnChange}
+                >
+                  {categoryData.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+                {/* <input
                   type="number"
                   className="form-control"
                   id="category_id"
                   onChange={handleOnChange}
                   required
-                />
+                /> */}
               </div>
               <div className="mb-3">
                 <label htmlFor="description" className="col-form-label">
